@@ -10,6 +10,8 @@
         <h1>Payment History <small></small></h1>
 
         <?php 
+		
+        
         if (isset($transactions) && !empty($transactions))
         { 
             ?>
@@ -26,10 +28,7 @@
                     </thead>
                     <tbody>
                         <?php
-                      //  echo '<pre>';
-                      // print_r(array_keys($transactions)[0]);
-                        $lastIndex = array_keys($transactions)[0];
-                       // echo $lastIndex; exit;
+                        											
                         foreach ($transactions as $payment)
                         {
                         ?>
@@ -127,11 +126,6 @@
 <script src="js/tablesorter/tables.js"></script>
 <script>
 	
-	$(function(){
-		
-		displayDetails('<?php echo $lastIndex; ?>');
-		
-		});
 	
     function displayDetails(id){
         

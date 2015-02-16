@@ -692,8 +692,7 @@ else if ($current_file_name == 'payment_history') {
     $product = new ProductController();
     
     $purchased_products = $product->get_purchased_products($_SESSION['user_id'], 'history');
-    // echo '<pre>';
-      //                  print_r($purchased_products); exit;
+   
     if($purchased_products!=false)
     {
       
@@ -708,6 +707,8 @@ else if ($current_file_name == 'payment_history') {
         $transactions[$products['purchase_id']]['products'][] = $products;
     }
     }
+    
+   
     include("templates/payment_history.php");
 }
 //user delete
