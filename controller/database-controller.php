@@ -886,7 +886,7 @@ public function force_user_registration($first_name, $last_name, $email, $userna
         }
     }
 
-    /**
+   /**
      * Get the purchased products of user
      * @param type $user_id
      * @return array
@@ -898,22 +898,25 @@ public function force_user_registration($first_name, $last_name, $email, $userna
             $condition = ($user_id == 'all') ? '1' : "pr.user_id = $user_id ";
             
             $query  = "SELECT p . * , pr.id as purchase_id, pr.transaction_id, pr.date_time, pr.total_price, pr.payment_status, 
-                    d.token, pp.expires_on, pp.download_count, CONCAT(u.firstname, ' ', u.lastname) as user, u.email FROM " 
+                    d.token, pp.expires_on, pp.download_count FROM " 
                     . $this->db_table_prefix . "purchase_products pp LEFT JOIN " 
                     . $this->db_table_prefix . "purchases pr ON pp.purchase_id = pr.id LEFT JOIN "
                     . $this->db_table_prefix . "products p ON pp.product_id = p.id LEFT JOIN " 
                     . $this->db_table_prefix . "downloads d ON pr.id = d.purchase_id LEFT JOIN "
                     . $this->db_table_prefix . "users u ON pr.user_id = u.id "
-                    . "WHERE ". $condition . " group BY pr.date_time DESC";
-          //  echo $query; exit;
+                    . "Where ".$condition ."group BY p.id DESC";
+                    //."group BY pr.date_time DESC";
+			//echo $query; exit;
             
-//            if(!empty($section) && $section == 'history')
-//                $query .= " AND pr.payment_status = 'Completed'";
+		//if(!empty($section) && $section == 'history')
+		// $query .= " AND pr.payment_status = 'Completed'";
             
             $result = $this->commonDatabaseAction($query);            
+            
 //            if (mysql_num_rows($result) > 0)
             if ($this->rowCount > 0)
             {
+				
                 return $this->resultArray($result);
             }
             else
