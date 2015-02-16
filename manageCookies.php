@@ -39,7 +39,7 @@ if(isset($_POST))
 
 		print_r($_COOKIE['id']); exit;
 
-		//echo 'set';
+		
 	}
 	else if(isset($_SESSION['user_id']))
 	{

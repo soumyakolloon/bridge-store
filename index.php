@@ -3,7 +3,7 @@
 /**
  * @project Bridge shoppingcart
  * Main Index page
- * modified: 16/02/2015
+ * modified: 16/02/2015 
  */
 include('config.php');
 include_once 'controller/user-controller.php';
