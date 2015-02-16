@@ -1,0 +1,29 @@
+Employee Code: 1097
+------------------------------------------
+
+Email: soumya.k@bridge-india.in
+password: z46codex
+-------------------------------------------
+
+Skype: 
+
+username: soumya.bridge
+password: mh04da2003
+
+--------------------------------------------
+PMT
+
+url: pmt.bridge-delivery.com
+username: soumya
+password; soumya1
+
+---------------------------------------------
+
+Weblogin
+
+
+url: http://172.16.16.16:8090
+username: soumya
+password: hk6594
+
+---------------------------------------------

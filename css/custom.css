@@ -1,0 +1,19 @@
+@CHARSET "ISO-8859-1";
+.user-link{
+    float:right;
+}
+
+/* Product Listing Style */
+.prod-desc{
+    height: 60px;
+    overflow: hidden;
+}
+
+/* Header Menu Style */
+ul.clearfix li{
+    margin-left: 15px;
+	white-space: nowrap;
+}
+ul.clearfix li a{
+    width: auto !important;
+}
