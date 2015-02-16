@@ -905,15 +905,12 @@ public function force_user_registration($first_name, $last_name, $email, $userna
                     . $this->db_table_prefix . "downloads d ON pr.id = d.purchase_id LEFT JOIN "
                     . $this->db_table_prefix . "users u ON pr.user_id = u.id "
                     . "Where ".$condition ."group BY p.id DESC";
-                    //."group BY pr.date_time DESC";
-			//echo $query; exit;
-            
-		//if(!empty($section) && $section == 'history')
-		// $query .= " AND pr.payment_status = 'Completed'";
+                
+				
             
             $result = $this->commonDatabaseAction($query);            
             
-//            if (mysql_num_rows($result) > 0)
+
             if ($this->rowCount > 0)
             {
 				
