@@ -323,20 +323,20 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
                 $test[$key] = urldecode($value);
             }
 
-            $app->redirect('index.php?page=paymentResponse&status=success');
+            $app->redirect('index.php?page=payment_history&status=success');
         }
         else
         {
            
             $_SESSION['payment_error_detail'] = urldecode($httpParsedResponseAr["L_LONGMESSAGE0"]);
-            $app->redirect('index.php?page=paymentResponse&status=error');
+            $app->redirect('index.php?page=payment_history&status=error');
         }
     }
     else
     {
         
         $_SESSION['payment_error_detail'] = urldecode($httpParsedResponseAr["L_LONGMESSAGE0"]);
-        $app->redirect('index.php?page=paymentResponse&status=error');
+        $app->redirect('index.php?page=payment_history&status=error');
     }
 }
 ?>

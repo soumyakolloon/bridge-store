@@ -17,7 +17,9 @@
 <!-- <img src="uploads/<?php //echo $product['id'] . '_' . $product['image_path']; ?>" width="100" height="100" /> -->
 
 <ul class="bxslider">
-<?php foreach($prod_images as $imgdetails){ ?>
+<?php
+
+ foreach($prod_images as $imgdetails){ ?>
 <li><a class="group1" href="uploads/<?php echo $imgdetails['image_path']; ?>"><img src="uploads/<?php echo $imgdetails['image_path']; ?>" width="100" height="100"/></a></li>
 <?php } ?>
 </ul>

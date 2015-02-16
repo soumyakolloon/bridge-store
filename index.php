@@ -400,8 +400,8 @@ else if ($current_file_name == 'product-detail') {
 
     $prod_images = $product->get_prod_inages($product_id);
 
-    // echo '<pre>';
-    // print_r($prod_images); exit;
+		//echo '<pre>';
+     //print_r($productArray); exit;
 
     include_once 'templates/product-detail.php';
 

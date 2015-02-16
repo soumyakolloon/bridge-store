@@ -276,15 +276,15 @@ class DataBaseController extends BaseController
         $query  = "SELECT p.*, c.status as categoryStatus
         	       FROM " . $this->db_table_prefix . "products p
                    LEFT JOIN " . $this->db_table_prefix . "categories c ON p.cat_id = c.id 
-        	       WHERE p.id = $id and p.status=1";
+        	       WHERE p.id = ".$id." and p.status=1";
 
         $result = $this->commonDatabaseAction($query);
-        //print_r($this->rowCount); exit;
+       // print_r($this->rowCount); exit;
         
 //        if (mysql_num_rows($result) > 0)
         if ($this->rowCount > 0)
         {
-         // print_r(mysql_fetch_assoc($result));
+         //print_r($this->sqlAssoc); exit;
             return $this->sqlAssoc;
         }
         else
@@ -904,9 +904,9 @@ public function force_user_registration($first_name, $last_name, $email, $userna
                     . $this->db_table_prefix . "products p ON pp.product_id = p.id LEFT JOIN " 
                     . $this->db_table_prefix . "downloads d ON pr.id = d.purchase_id LEFT JOIN "
                     . $this->db_table_prefix . "users u ON pr.user_id = u.id "
-                    . "Where ".$condition ."group BY p.id DESC";
+                    . "Where ".$condition ."group BY pp.id DESC";
                 
-				
+			//echo $query; exit;	
             
             $result = $this->commonDatabaseAction($query);            
             
