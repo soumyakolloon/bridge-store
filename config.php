@@ -15,7 +15,7 @@ class Configuration
     function __construct()
     {
         $this->config = array(
-                            'base_path'       => 'localhost/store/',
+                            'base_path'       => 'localhost/bridge-store/',
                             'uploads_folder'  => 'uploads',
                             'allowed_types'   => 'jpg|gif|png|zip|gz|txt|pdf|docx',
                             'zip_types'       => 'jpg|gif|png',
