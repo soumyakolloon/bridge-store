@@ -26,13 +26,43 @@ $application = new AppController ();
 if ((isset($_POST) ) && (isset($_POST ['btnLoginSubmit']) )) {
 	
     $user->user_login(bridge_trim_deep($_POST));
-
+	
     // If admin logged in
     if ($application->is_logged_in(1, false)) {
         $application->redirect("index.php?page=index");
     }
     else {
-        if (isset($_SESSION['page']) && $_SESSION['page'] != '') {
+		print_r($_POST);
+		if(isset($_POST['token']))
+		{
+			$token = $_GET['token'];
+        include_once 'controller/product-controller.php';
+        
+        $product = new ProductController();
+        $is_valid_token = $product->is_valid_download_token($token);
+        if ($is_valid_token) {
+          
+            
+            $product_info = $product->get(array('token' => $_GET['token']));
+            $filename = $product_info[0]['id'] . '_' . $product_info[0]['download_link'];
+            $path = $config['uploads_folder'];
+            // Download file                              
+            //$product->download_file($path, $filename);
+            
+           
+            include("templates/downloadContent.php");
+			
+            
+            //printf("<script>location.href='download.php?token=$token'</script>");
+        }
+        else {
+			include_once('layout/header.php');
+            echo 'Invalid Token';
+            include_once('layout/footer.php');
+        }
+		}
+		exit;
+        /*if (isset($_SESSION['page']) && $_SESSION['page'] != '') {
             $url_string = 'index.php?page=' . $_SESSION['page'];
             if (isset($_SESSION['url_params']) && !empty($_SESSION['url_params'])) {
                 foreach ($_SESSION['url_params'] as $key => $value) {
@@ -44,7 +74,7 @@ if ((isset($_POST) ) && (isset($_POST ['btnLoginSubmit']) )) {
         }
         else {
             $application->redirect("index.php?page=index");
-        }
+        }*/
     }
 }
 
@@ -70,7 +100,7 @@ selectMenuItem($current_file_name);
 
 if ($current_file_name == 'index') {
 
-
+	
     include_once 'controller/product-controller.php';
     // Get products
 
@@ -86,12 +116,16 @@ if ($current_file_name == 'index') {
        
         $home_page = true;
         //include_once 'templates/admin-dashboard.php';
+        
         include_once 'templates/home.php';
+        
+        
     }
     else {
         if ($application->is_logged_in(0, false)) {
             
             //get purchased product ids
+            
             
             $purchase_prod_arr = array();
             
@@ -117,9 +151,12 @@ if ($current_file_name == 'index') {
 }
 // Login page
 else if ($current_file_name == 'login') {
-    if (isset($_SESSION ['user_id']) && ( $_SESSION ['user_id'] == '' )) {        
+    if (isset($_SESSION ['user_id']) && ( $_SESSION ['user_id'] == '' )) {
+		        
         $_SESSION['page'] = $_GET['page'];
         include_once 'templates/login.php';
+        
+        
     }
     else {
         $application->redirect("index.php");
@@ -651,9 +688,13 @@ else if ($current_file_name == 'paymentResponse') {
 // Downloader page
 else if ($current_file_name == 'downloader') {
   
+	include_once 'controller/user-controller.php';
+  
+	
     if (isset($_GET['token']) && $_GET['token'] != '') {
         $token = $_GET['token'];
         include_once 'controller/product-controller.php';
+        
         $product = new ProductController();
         $is_valid_token = $product->is_valid_download_token($token);
         if ($is_valid_token) {
@@ -664,15 +705,26 @@ else if ($current_file_name == 'downloader') {
             $path = $config['uploads_folder'];
             // Download file                              
             //$product->download_file($path, $filename);
+            
+           if(!empty($_SESSION['user_id']))
+			{
             include("templates/downloadContent.php");
+			}
+			else
+			{
+			$user = new UserController();
+			$user->redirect('index.php?page=login&fromhost=mail&token='.$_GET['token']);
+			}
+            
             //printf("<script>location.href='download.php?token=$token'</script>");
         }
         else {
             echo 'Invalid Token';
         }
     }
+	
     else {
-        
+			
     }
 }
 // mail test

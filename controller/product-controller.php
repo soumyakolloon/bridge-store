@@ -192,6 +192,7 @@ public function imageExitence($id)
                 ob_end_clean();
                 if ($this->send_email($mail_info, $subject, $message))
                 {
+                   
                     return true;
                 }
                 else

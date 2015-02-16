@@ -105,6 +105,14 @@ if (isset($_SESSION ['user_login_error']) && $_SESSION ['user_login_error'] == 1
 {
     echo $_GET['page'];
 } ?>" >
+<input type="hidden" name="fromhost" id="fromhost" value="<?php if (isset($_GET['fromhost']) && $_GET['fromhost'] != '')
+{
+    echo $_GET['fromhost'];
+} ?>" >
+<input type="hidden" name="token" id="token" value="<?php if (isset($_GET['token']) && $_GET['token'] != '')
+{
+    echo $_GET['token'];
+} ?>" >
         </form>
     </div>
 </div>

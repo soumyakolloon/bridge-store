@@ -9,7 +9,7 @@ include_once 'controller/product-controller.php';
 include_once 'controller/database-controller.php';
 include_once 'common/common-function.php';
 include_once '../layout/header.php';
-error_reporting(0);
+//error_reporting(0);
 php_session_start();
 ob_clean();
 
