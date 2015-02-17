@@ -176,20 +176,45 @@ public function imageExitence($id)
             if (!empty($product_info))
             {
 
-                $mail_info = array(
-                    'from_email'  => 'sobin87@gmail.com',
-                    'from_name'   => 'Bridge Team',
-                    'reply_email' => 'sobin87@gmail.com',
-                    'reply_name'  => 'Bridge Team',
-                    'to_email'    => $emails
-                );
-
-                $subject       = 'Bridgestore: Product download Link';
+					$mail_info = array(
+						'from_email'  => 'sobin87@gmail.com',
+						'from_name'   => 'Bridge Team',
+						'reply_email' => 'sobin87@gmail.com',
+						'reply_name'  => 'Bridge Team',
+						'to_email'    => $emails
+					);
+				
+					$subject       = 'Bridgestore: Product download Link';
                 $download_link = $base_url . 'index.php?page=downloader&token=' . $download_token;
                 ob_start();
-                include('layout/download_link_mail.php');
-                $message       = ob_get_contents();
-                ob_end_clean();
+                
+                /**Get User name and user first and last name*/
+            
+			include_once 'controller/user-controller.php';
+            $user = new UserController();
+            $userdetails = $user->get(array('id'=>$_SESSION['user_id']));
+            
+            $userdet = $userdetails[0];
+            if(!empty($userdet))
+            {
+			$username = $userdet['username'];
+			$firstname = $userdet['firstname'];
+			$lastname = $userdet['lastname'];
+			if($lastname!='')
+			$fullname = $firstname. " ". $lastname;
+			else
+			$fullname = $firstname;
+			}
+
+
+
+            
+					
+                
+               // include('layout/download_link_mail.php');
+                $message       = '<div><p>Hi '.ucfirst($username).', </p><p>Thank you for buying the product. Please login and download the purchsed product. </p><p>Username: </br/>'.$fullname.' </p><p>You can download product by clicking on below link</p> <a href="http://'.$download_link.'">'.$download_link.'</a></p><p>Best Regards,<br/>Bridge Team.</p></div>'; 
+				//ob_get_contents();
+                //ob_end_clean();
                 if ($this->send_email($mail_info, $subject, $message))
                 {
                    
@@ -279,6 +304,7 @@ public function imageExitence($id)
         if($user_id)
         {
             $purchased_products = $this->database->get_user_purchased_products($user_id, $section);
+            
             if($purchased_products)
             {
                 return $purchased_products;
@@ -346,5 +372,65 @@ public function imageExitence($id)
         else
             return false;
     }
+    
+    
+    /**
+     * Send password reset email
+     * @author Soumya Kolloon
+     * **/
+
+	public function sendMail($rand_password)
+	{
+			/**Send email notification for the password*/
+			ob_start();
+			
+			 $emails[]   = array(
+                            'email' => $_POST['email'],
+                            'name'  => ''
+                        );
+			
+			$mail_info = array(
+						'from_email'  => '',
+						'from_name'   => 'Bridge Team',
+						'reply_email' => '',
+						'reply_name'  => 'Bridge Team',
+						'to_email'    => $emails
+					);
+				
+				$subject = 'Bridgestore: Password Reset';
+				
+				include_once 'controller/application-controller.php';
+				$appObj = new AppController();
+				
+				$web_root = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/";
+				
+								
+				$pwd_change_link = $web_root . 'index.php?page=change-password&email-token='.base64_encode($_POST['email']);		
+			
+				$message = '<div><p>Hi, </p><p>We received a password reset request and your password has been changed as <strong>'.$rand_password.'</strong>. Click the link below to change the password.<br/><a href="'.$pwd_change_link.'">'.$pwd_change_link.'</a></p><p>Best Regards,<br/>Bridge Team.</p></div>'; 
+				
+				
+                if ($appObj->send_email($mail_info, $subject, $message))
+                {
+					//echo 'Password reset successfully. Please check your email to get new password.';
+					//exit;
+                    return true;
+                }
+                else
+                {
+					//echo 'errorsss'; exit;
+                    return false;
+                }
+		
+		
+		
+		
+		
+	}
+	
+
+	
+
+
 
 }

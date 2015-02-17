@@ -101,6 +101,9 @@ if (isset($_SESSION ['user_login_error']) && $_SESSION ['user_login_error'] == 1
                     </div>
                 </div>
             </div>
+            <div>
+            <a href="index.php?page=forgot-password" id="forgot-password">Forgot Password</a>
+            </div>
             <input type="hidden" name="hiddenRedirect" value="<?php if (isset($_GET['page']) && $_GET['page'] != '')
 {
     echo $_GET['page'];

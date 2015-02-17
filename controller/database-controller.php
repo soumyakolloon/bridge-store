@@ -481,6 +481,7 @@ class DataBaseController extends BaseController
     public function empty_cart($user_id, $product_id = null)
     {
         $user_id = $_SESSION['user_id'];
+        
         $condition = (!empty($product_id)) ? "user_id = $user_id AND product_id = $product_id" : "user_id = $user_id";
         
         $query  = "DELETE
@@ -1155,5 +1156,71 @@ public function product_image_remove($data)
         }
     }
 
+/**
+ * Update password by username
+ * @author Soumya Kolloon
+ * **/
+ 
+ public function password_update_by_name($username, $randpwd)
+ {
+	 $query  = "UPDATE ".$this->db_table_prefix . "users SET password='".md5($randpwd)."' WHERE username = '".$username."'";
+        
+        $result = $this->commonDatabaseAction($query);
+        //echo $query; exit;
+        if ($this->sqlAffected > 0)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+}
+
+/**
+ * Update password by email
+ *
+ * @author Soumya Kolloon
+ * **/
+ 
+ public function password_update_by_email($email, $randpwd)
+ {
+	 
+	 $query  = "UPDATE ".$this->db_table_prefix . "users SET password='".md5($randpwd)."' WHERE email = '".$email."'";
+        
+        $result = $this->commonDatabaseAction($query);
+	
+	 if ($this->sqlAffected > 0)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+ }
+
+
+
+/**
+     * Get all users by email and username
+     * @return array
+     */
+    public function user_get_by_useremail($email)
+    {
+        $query  = "SELECT *
+                   FROM " . $this->db_table_prefix . "users where email='".$email."'";
+        $result = $this->commonDatabaseAction($query);
+//        if (mysql_num_rows($result) > 0)
+        if ($this->rowCount > 0)
+        {
+            return $this->resultArray($result);
+        }
+        else
+        {
+            return null;
+        }
+    }
+	
 
 }

@@ -122,6 +122,8 @@ class AppController
      */
     public function send_email($email_ids, $subject = '', $message = '', $attachments = null)
     {
+		
+		
        
         if (empty($email_ids))
         {
@@ -129,12 +131,16 @@ class AppController
         }
         else
         {   
+			
+			
             $from_name   = (isset($email_ids['from_name'])) ? $email_ids['from_name'] : '';
             $from_email  = (isset($email_ids['from_email'])) ? $email_ids['from_email'] : '';
             $reply_name  = (isset($email_ids['reply_name'])) ? $email_ids['reply_name'] : '';
             $reply_email = (isset($email_ids['reply_email'])) ? $email_ids['reply_email'] : '';            
             $to_emails   = (isset($email_ids['to_email'])) ? $email_ids['to_email'] : array();                       
-
+			
+			
+			
             //Create a new PHPMailer instance
             $mail            = new PHPMailer();
             //Tell PHPMailer to use SMTP
@@ -194,7 +200,8 @@ class AppController
             //send the message, check for errors
             if (!$mail->send())
             {
-               
+             echo 'Message could not be sent.';
+           echo 'Mailer Error: ' . $mail->ErrorInfo; exit;  
                 return false;
             }
             else

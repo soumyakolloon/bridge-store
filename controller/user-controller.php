@@ -123,4 +123,54 @@ class UserController extends AppController
         return $result;
     }
 
+	/**Generate a random string*/
+
+function rand_string( $length ) {
+
+$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+return substr(str_shuffle($chars),0,$length);
+
+}
+
+
+/**
+	 * Update password in database
+	 * @author Soumya Kolloon
+	 * * */
+	 
+	 public function updatePassword($filters)
+	 {
+		
+		//print_r($filters); exit;
+		if(isset($filters['username']) && $filters['username']!='')
+        {
+
+        $result = $this->database->password_update_by_name($filters['username'], $filters['rand_password']);
+            
+        }
+        else if(isset($filters['email']) && $filters['email']!='')
+        {
+		 $result = $this->database->password_update_by_email($filters['email'], $filters['rand_password']);
+		}
+		
+		return $result; 
+		 
+	 }
+
+/**
+	 * Update password in database
+	 * @author Soumya Kolloon
+	 * * */
+	 
+	 public function getUserDetailsByemail($email)
+	 {
+			
+
+        $result = $this->database->user_get_by_useremail($email);
+                  	
+		return $result; 
+		 
+	 }
+
+
 }

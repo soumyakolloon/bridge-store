@@ -26,44 +26,28 @@ $application = new AppController ();
 if ((isset($_POST) ) && (isset($_POST ['btnLoginSubmit']) )) {
 	
     $user->user_login(bridge_trim_deep($_POST));
+
 	
     // If admin logged in
     if ($application->is_logged_in(1, false)) {
         $application->redirect("index.php?page=index");
     }
     else {
-		print_r($_POST);
-		if(isset($_POST['token']))
-		{
-			$token = $_GET['token'];
-        include_once 'controller/product-controller.php';
-        
-        $product = new ProductController();
-        $is_valid_token = $product->is_valid_download_token($token);
-        if ($is_valid_token) {
-          
+		
+		
+        if (isset($_SESSION['page']) && $_SESSION['page'] != '') {
             
-            $product_info = $product->get(array('token' => $_GET['token']));
-            $filename = $product_info[0]['id'] . '_' . $product_info[0]['download_link'];
-            $path = $config['uploads_folder'];
-            // Download file                              
-            //$product->download_file($path, $filename);
+            if(isset($_POST['fromhost']) && $_POST['fromhost']=='mail')
+            {
+			$url_string = 'index.php?page=downloader&token='.$_POST['token'];
+			}
             
-           
-            include("templates/downloadContent.php");
-			
-            
-            //printf("<script>location.href='download.php?token=$token'</script>");
-        }
-        else {
-			include_once('layout/header.php');
-            echo 'Invalid Token';
-            include_once('layout/footer.php');
-        }
-		}
-		exit;
-        /*if (isset($_SESSION['page']) && $_SESSION['page'] != '') {
+            else
+            {
             $url_string = 'index.php?page=' . $_SESSION['page'];
+			}
+                       
+            
             if (isset($_SESSION['url_params']) && !empty($_SESSION['url_params'])) {
                 foreach ($_SESSION['url_params'] as $key => $value) {
                     $url_string .= '&' . $key . '=' . $value;
@@ -74,7 +58,7 @@ if ((isset($_POST) ) && (isset($_POST ['btnLoginSubmit']) )) {
         }
         else {
             $application->redirect("index.php?page=index");
-        }*/
+        }
     }
 }
 
@@ -100,7 +84,7 @@ selectMenuItem($current_file_name);
 
 if ($current_file_name == 'index') {
 
-	
+
     include_once 'controller/product-controller.php';
     // Get products
 
@@ -116,16 +100,12 @@ if ($current_file_name == 'index') {
        
         $home_page = true;
         //include_once 'templates/admin-dashboard.php';
-        
         include_once 'templates/home.php';
-        
-        
     }
     else {
         if ($application->is_logged_in(0, false)) {
             
             //get purchased product ids
-            
             
             $purchase_prod_arr = array();
             
@@ -151,12 +131,9 @@ if ($current_file_name == 'index') {
 }
 // Login page
 else if ($current_file_name == 'login') {
-    if (isset($_SESSION ['user_id']) && ( $_SESSION ['user_id'] == '' )) {
-		        
+    if (isset($_SESSION ['user_id']) && ( $_SESSION ['user_id'] == '' )) {        
         $_SESSION['page'] = $_GET['page'];
         include_once 'templates/login.php';
-        
-        
     }
     else {
         $application->redirect("index.php");
@@ -685,16 +662,23 @@ else if ($current_file_name == 'paymentResponse') {
     include_once 'templates/paymentResponse.php';
 }
 
-// Downloader page
-else if ($current_file_name == 'downloader') {
+	// Downloader page
+	else if ($current_file_name == 'downloader') {
   
-	include_once 'controller/user-controller.php';
-  
+	include_once "controller/user-controller.php";
+	$user = new UserController();
 	
+    if(empty($_SESSION['user_id']))
+    {
+	
+	$user->redirect('index.php?page=login&fromhost=mail&token='.$_GET['token']);
+	}
+    else
+    {
+		
     if (isset($_GET['token']) && $_GET['token'] != '') {
         $token = $_GET['token'];
         include_once 'controller/product-controller.php';
-        
         $product = new ProductController();
         $is_valid_token = $product->is_valid_download_token($token);
         if ($is_valid_token) {
@@ -706,15 +690,10 @@ else if ($current_file_name == 'downloader') {
             // Download file                              
             //$product->download_file($path, $filename);
             
-           if(!empty($_SESSION['user_id']))
-			{
+           		
+           
+            
             include("templates/downloadContent.php");
-			}
-			else
-			{
-			$user = new UserController();
-			$user->redirect('index.php?page=login&fromhost=mail&token='.$_GET['token']);
-			}
             
             //printf("<script>location.href='download.php?token=$token'</script>");
         }
@@ -722,10 +701,8 @@ else if ($current_file_name == 'downloader') {
             echo 'Invalid Token';
         }
     }
-	
-    else {
-			
-    }
+    
+   }
 }
 // mail test
 else if ($current_file_name == 'mailtest') {
@@ -744,7 +721,8 @@ else if ($current_file_name == 'payment_history') {
     $product = new ProductController();
     
     $purchased_products = $product->get_purchased_products($_SESSION['user_id'], 'history');
-   
+   	// echo '<pre>';
+     // print_r($purchased_products); exit;
     if($purchased_products!=false)
     {
       
@@ -759,8 +737,8 @@ else if ($current_file_name == 'payment_history') {
         $transactions[$products['purchase_id']]['products'][] = $products;
     }
     }
-    
-   
+
+	//echo 'test'; exit;
     include("templates/payment_history.php");
 }
 //user delete
@@ -794,41 +772,97 @@ else if ($current_file_name == 'download_history') {
     get_purchase_details();
 //    include("templates/payment_history.php");
 }
-// user download history
-// else if ($current_file_name == 'verifylogin') {
-    
-//         include_once('controller/user-controller.php');
-//         echo 'fs'; die();
-//         $user = new UserController ();
-//         $userDetails = $user->user_existence_check($_POST['email']);
-//         print_r($userDetails); die();
-// }
 
-/**
- * function to get full purchase details
- * 
- * @author Jeny Devassy <jeny.devassy@bridge-india.in>
- * @modified on 16 Sep 2014
- */
-//function get_purchase_details(){
-//    
-//    include_once 'controller/product-controller.php';
-//    
-//    $product = new ProductController();
-//    
-//    $purchased_products = $product->get_purchased_products($_SESSION['user_id'], 'history');
-//    
-//    foreach ($purchased_products as $key => $products) 
-//    {
-//        $transactions[$products['transaction_id']]['transaction_id'] = $products['transaction_id'];
-//        $transactions[$products['transaction_id']]['payment_status'] = $products['payment_status'];
-//        $transactions[$products['transaction_id']]['total_price'] = $products['total_price'];
-//        $transactions[$products['transaction_id']]['date_time'] = $products['date_time'];
-//        $transactions[$products['transaction_id']]['products'][] = $products;
-//    }
-//    return $transactions;
-//    
-//}
+
+/*Forgot password functionality
+ * @author Soumya Kolloon
+ * */
+else if($current_file_name=='forgot-password')
+{
+	include_once 'controller/user-controller.php';
+	include_once 'controller/product-controller.php';
+	$user = new UserController();
+	$product = new ProductController();
+	
+			
+	if(isset($_POST) && !empty($_POST))
+	{
+		$rand_password = $user->rand_string(8);
+		
+		$_POST['rand_password'] = $rand_password;
+		
+		if(isset($_POST['email']) && $_POST['email']!='')
+		{
+			$update_db = $user->updatePassword($_POST);
+		
+			if($update_db==1)
+			{
+			$mail_satus = $product->sendMail($rand_password);		
+						
+			if($mail_satus)
+				$user->redirect('index.php?page=forgot-password&msg=1');
+				else
+				$user->redirect('index.php?page=forgot-password&msg=2');
+				
+			}
+			else
+			{
+				$user->redirect('index.php?page=forgot-password&msg=3');
+			}
+		}
+		
+	}
+		
+include('templates/forgot-password.php');
+}
+
+
+else if($current_file_name=='change-password')
+{
+	include_once 'controller/user-controller.php';
+	include_once 'controller/product-controller.php';
+	$user = new UserController();
+	$product = new ProductController();
+	
+	if(isset($_POST))
+	{
+		$userDetails = $user->getUserDetailsByemail(base64_decode($_POST['email-token']));
+		
+		$userDet = $userDetails[0];
+		$old_pwd = $userDet['password'];
+		//print_r($_POST); exit;
+		$data_input = array('email'=>base64_decode($_POST['email-token']), 'rand_password'=>$_POST['new-pwd']);
+		
+		if($old_pwd==md5($_POST['old-pwd']))
+		{
+			$update_pwd = $user->updatePassword($data_input);
+			
+			//echo $update_pwd; exit;
+			
+			if($update_pwd==1)
+			{
+			$user->redirect('index.php?page=change-password&msg=1');
+			exit;
+			}
+			else
+			{
+			$user->redirect('index.php?page=change-password&msg=2');
+			exit;
+			}
+		}
+		/*else
+		{
+			$user->redirect('index.php?page=change-password&msg=3');
+			//exit;
+		}*/
+		
+	}
+	
+	include('templates/change-password.php');
+			
+		
+
+}
 
 include_once 'layout/footer.php';
 
