@@ -9,7 +9,7 @@ $_POST['lastname']='';
 
 $user_id = $user->force__user_registration($_POST);
 if($user_id)
-$user_details = $user->user_existence_check($_POST['username'],$_POST['email']);
+$user_details = $user->user_existence_check($_POST['email']);
 if(!empty($user_details))
 {
 			$_SESSION['user_id'] = $user_details[0]['id'];

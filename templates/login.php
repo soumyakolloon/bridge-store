@@ -58,12 +58,13 @@ if (isset($_SESSION ['user_login_error']) && $_SESSION ['user_login_error'] == 1
                         </div>
                         <div class="col-xs-4">
                             <div class="form-group">
-                                <label>Username</label>
+                                <label>Username: </label>
+                                
                             </div>
                         </div>
                         <div class="col-xs-7">
                             <div class="form-group">
-                                <input autofocus required="required" class="form-control" placeholder="Enter Username" name="username" value="<?php if (isset($_POST['username']) && $_POST['username'] != '')
+                                <input autofocus required="required" type="email" class="form-control" placeholder="Enter your registered email" name="username" value="<?php if (isset($_POST['username']) && $_POST['username'] != '')
 {
     echo $_POST['username'];
 } ?>">

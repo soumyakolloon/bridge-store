@@ -8,7 +8,7 @@ $app = new AppController();
 
 $_POST['firstname']=$_POST['username'];
 $_POST['lastname']='';
-$user_details = $user->user_existence_check($_POST['username'],$_POST['email']);
+$user_details = $user->user_existence_check($_POST['email']);
 session_start(); 
 if(!empty($user_details))
 {

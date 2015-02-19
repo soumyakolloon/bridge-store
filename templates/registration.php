@@ -23,7 +23,7 @@ if (isset($_SESSION ['user_registration_password_error']) && $_SESSION ['user_re
             }, 2500);
     <?php
 }
-if (isset($_SESSION ['user_registration_username_error']) && $_SESSION ['user_registration_username_error'] == 1)
+/*if (isset($_SESSION ['user_registration_username_error']) && $_SESSION ['user_registration_username_error'] == 1)
 {
     ?>
             $("#registration-banner").hide();
@@ -35,7 +35,7 @@ if (isset($_SESSION ['user_registration_username_error']) && $_SESSION ['user_re
                 $("#registration-banner").show('blind', {}, 500)
             }, 2500);
     <?php
-}
+}*/
 if (isset($_SESSION ['user_registration_error']) && $_SESSION ['user_registration_error'] == 1)
 {
     ?>
@@ -149,19 +149,21 @@ if (isset($_SESSION ['user_registration_error']) && $_SESSION ['user_registratio
 } ?>">
                             </div>
                         </div>
-                        <div class="col-xs-4">
+                       
+                       <!-- <div class="col-xs-4">
                             <div class="form-group">
                                 <label>Username</label>
                             </div>
                         </div>
                         <div class="col-xs-7">
                             <div class="form-group">
-                                <input required="required" class="form-control" placeholder="Enter Username" name="username" value="<?php if (isset($post['username']) && $post['username'] != '')
-{
-    echo $post['username'];
-} ?>">
+                                <input required="required" class="form-control" placeholder="Enter Username" name="username" value="<?php //if (isset($post['username']) && $post['username'] != '')
+//{
+  //  echo $post['username'];
+//} ?>">
                             </div>
-                        </div>
+                        </div>-->
+                        
                         <div class="col-xs-4">
                             <div class="form-group">
                                 <label>Password</label>

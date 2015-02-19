@@ -19,6 +19,7 @@ if (!isset($_SESSION ['user_id'])) {
     $_SESSION ['user_id'] = '';
 }
 
+
 $user = new UserController ();
 $application = new AppController ();
 

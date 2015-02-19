@@ -69,7 +69,7 @@ class DataBaseController extends BaseController
         $query = "SELECT u.*
         		  FROM " . $this->db_table_prefix . "users u
         		  JOIN " . $this->db_table_prefix . "roles r ON u.role_id = r.id
-        		  WHERE username='" . $username . "' AND password='" . md5($password) . "' 
+        		  WHERE email='" . $username . "' AND password='" . md5($password) . "' 
                   AND u.status = '1' LIMIT 0,1";
         
         $result = $this->commonDatabaseAction($query); 
@@ -673,7 +673,7 @@ class DataBaseController extends BaseController
 
         $checking_query = "SELECT *
 						   FROM " . $this->db_table_prefix . "users
-					       WHERE username='" . $username . "' AND role_id='2'
+					       WHERE email='" . $email . "' AND role_id='2'
   		     			   LIMIT 0,1";
         
 
@@ -685,7 +685,7 @@ class DataBaseController extends BaseController
 
             $this->commonDatabaseAction($query);
             
-            $this->user_login($username, $password);
+            $this->user_login($email, $password);
             
             return true;
         }
@@ -780,10 +780,10 @@ public function force_user_registration($first_name, $last_name, $email, $userna
      * Get all users by email and username
      * @return array
      */
-    public function user_get_by_email($name, $email)
+    public function user_get_by_email($email)
     {
         $query  = "SELECT *
-                   FROM " . $this->db_table_prefix . "users where username='".$name."' and email='".$email."'";
+                   FROM " . $this->db_table_prefix . "users where email='".$email."'";
         $result = $this->commonDatabaseAction($query);
 //        if (mysql_num_rows($result) > 0)
         if ($this->rowCount > 0)

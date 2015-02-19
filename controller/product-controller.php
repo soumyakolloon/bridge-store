@@ -201,21 +201,15 @@ public function imageExitence($id)
 			$username = $userdet['username'];
 			$firstname = $userdet['firstname'];
 			$lastname = $userdet['lastname'];
+			$user_email = $userdet['email'];
 			if($lastname!='')
 			$fullname = $firstname. " ". $lastname;
 			else
 			$fullname = $firstname;
 			}
-
-
-
-            
-					
-                
-               // include('layout/download_link_mail.php');
-                $message       = '<div><p>Hi '.ucfirst($username).', </p><p>Thank you for buying the product. Please login and download the purchsed product. </p><p>Username: '.$fullname.' </p><p>You can download product by clicking on below link</p> <a href="http://'.$download_link.'">'.$download_link.'</a></p><p>Best Regards,<br/>Bridge Team.</p></div>'; 
-				//ob_get_contents();
-                //ob_end_clean();
+				
+                $message       = '<div><p>Hi '.ucfirst($fullname).', </p><p>Thank you for your interest in Bridge Store. Please click on the below link to access your product.</p> <p><a href="http://'.$download_link.'">'.$download_link.'</a></p><p>Your Login Credentials: </p><p>Your registered email/ Username: '.$user_email.' <br/><br/>Your password were sent to the registered email-id when you registered with Bridge Store.</p><p>Best Regards,<br/>Bridge Team.</p></div>'; 
+				
                 if ($this->send_email($mail_info, $subject, $message))
                 {
                    

@@ -14,8 +14,9 @@ if (isset($_REQUEST['action']))
     /* User Registartion */
     if ($_REQUEST['action'] == 'REGISTRATION')
     {
-        if (( $_POST['firstname'] ) && ( $_POST['email'] ) && ( $_POST['username'] ) && ( $_POST['password'] ) && ( $_POST['confirmpassword'] ))
+        if (( $_POST['firstname'] ) && ( $_POST['email'] ) && ( $_POST['password'] ) && ( $_POST['confirmpassword'] ))
         {
+			echo 'inside if';
             if (( $_POST['password'] == $_POST['confirmpassword']))
             {
                 include_once 'controller/user-controller.php';
@@ -58,6 +59,7 @@ if (isset($_REQUEST['action']))
         }
         else
         {
+			echo 'inside else';
             /*
              * Registartion error (Mandatory fields are empty)
              *   */

@@ -117,9 +117,9 @@ class UserController extends AppController
 
     /**Get user existence**/
 
-    public function user_existence_check($name,$email)
+    public function user_existence_check($email)
     {
-        $result = $this->database->user_get_by_email($name,$email) ;
+        $result = $this->database->user_get_by_email($email) ;
         return $result;
     }
 

@@ -112,25 +112,36 @@
                                     
                                         
                                         <form enctype="multipart/form-data" method="POST">
-                                        <div class="mask" style="display:none; width:500px; height:300px; left:0px; top:0px;"><img id="ajax-loader" style="margin-left:250px; margin-top:150px;" src="images/bx_loader.gif"></div>
+                                        <div class="mask" style="display:none; width:500px; height:300px; left:0px; top:0px;">
+											<img id="ajax-loader" style="margin-left:250px; margin-top:150px;" src="images/bx_loader.gif"></div>
+											
                                          <a id="close-btn" href="#"><img src="img/close.png"></a>
-                                        <div class="form-group" id="name_field">
-                                        <label>Your Name:</label>
-                                        <input class="form-control" id="customer_name" name="customer_name" placeholder="" />
-                                        <label id="customer_name_error" class='error_msg'></label>
-                                        </div>
-
-                                        <div class="form-group" id="email_field">
+                                         
+                                         <div class="form-group" id="email_field">
                                         <label>Email:</label>
                                         <input class="form-control" id="customer_email" name="customer_email" placeholder=""  />
                                         <label id="customer_email_error" class='error_msg'></label>
                                         </div>
-
-                                        <div class="form-group" id="password_feild" style="display:none;">
-                                        <label>Choose Password:</label>
+										
+										
+										<div id="new_reg_section" style="display:none;">
+										
+										<div class="form-group" id="name_field">
+                                        <label>Your Name:</label>
+                                        <input class="form-control" id="customer_name" name="customer_name" placeholder="" />
+                                        <label id="customer_name_error" class='error_msg'></label>
+                                        </div>
+										
+                                        <div class="form-group" id="password_feild" >
+										<label>Choose Password:</label>
                                         <input type="password" class="form-control" id="password_set" name="password_set" />
                                         <label id="password_set_error" class='error_msg'></label>
                                         </div>
+                                        
+										</div>
+										
+										
+										
 
 
                                         <input type='button' class="btn btn-primary" id="primary_click" value="Submit" onClick="javascript:fieldvalidate();"  >  
@@ -236,22 +247,12 @@ function fieldvalidate()
     var flag1=true;
     var flag2=true;
     var flag3=true;
+    var flag5=true;
 
-    var customer_name = $('#customer_name').val();
+   
     var customer_email = $('#customer_email').val();
 
- if(!requireValidation(customer_name))
-{
-$('#customer_name_error').text("Name field cannot be empty");
 
-flag1=false;
-}
-else
-{
-$('#customer_name_error').text("");
-
-flag1=true;
-}
  if(!requireValidation(customer_email))
 {
 $('#customer_email_error').text("Email field cannot be empty");
@@ -278,7 +279,7 @@ $('#customer_email').text("");
 flag3=true;
 }
 
-if(flag1==true && flag2==true && flag3==true)
+if(flag2==true && flag3==true)
     flag=true
 else
     flag=false;
@@ -291,7 +292,7 @@ if(flag==true)
 $('.mask').show();
 var d={};
 d['email'] = customer_email;
-d['username'] = customer_name;
+//d['username'] = customer_name;
 
 $.ajax({
 url: "verifylogin.php",
@@ -301,21 +302,46 @@ success: function (returndata) {
 if(returndata==0)
 {
     $('.mask').hide();
-$('#name_field').hide();    
+//$('#name_field').hide();    
 $('#email_field').hide();
-$('#password_feild').show();
+$('#new_reg_section').show();
 var pwd_feild = $('#password_set').val();
-
-if(!requireValidation(pwd_feild))
+ var customer_name = $('#customer_name').val();
+ if(!requireValidation(customer_name))
 {
-$('#password_set_error').text("Please enter a password");
+$('#customer_name_error').text("Name field cannot be empty");
+
+flag1=false;
+//return false;
+
 }
 else
 {
+$('#customer_name_error').text("");
+
+flag1=true;
+//return true;
+
+}
+if(!requireValidation(pwd_feild))
+{
+$('#password_set_error').text("Please enter a password");
+flag5 = false;
+}
+else
+{
+$('#password_set_error').text("");
+flag5 = true;	
+}
+
+
+if(flag5==true && flag1==true)
+{
 $('.mask').show();
 $('#password_set_error').text("");
+$('#customer_name_error').text("");
 d['password'] = pwd_feild;
-
+d['username'] = customer_name;
 
 $.ajax({
 url: "saveLoginInfo.php",
