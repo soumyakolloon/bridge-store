@@ -150,6 +150,7 @@ public function imageExitence($id)
                 {                    
                     $product_array     = $this->get(array('id' => $value));
                     $product_info      = $product_array[0];
+                    date_default_timezone_set('Asia/Kolkata');
                     $expires_on       = time() + $product_info['validity'] * 3600;
                     $expire_timestamp = date('Y-m-d h:i:s A', $expires_on);
                     
@@ -212,7 +213,7 @@ public function imageExitence($id)
 					
                 
                // include('layout/download_link_mail.php');
-                $message       = '<div><p>Hi '.ucfirst($username).', </p><p>Thank you for buying the product. Please login and download the purchsed product. </p><p>Username: </br/>'.$fullname.' </p><p>You can download product by clicking on below link</p> <a href="http://'.$download_link.'">'.$download_link.'</a></p><p>Best Regards,<br/>Bridge Team.</p></div>'; 
+                $message       = '<div><p>Hi '.ucfirst($username).', </p><p>Thank you for buying the product. Please login and download the purchsed product. </p><p>Username: '.$fullname.' </p><p>You can download product by clicking on below link</p> <a href="http://'.$download_link.'">'.$download_link.'</a></p><p>Best Regards,<br/>Bridge Team.</p></div>'; 
 				//ob_get_contents();
                 //ob_end_clean();
                 if ($this->send_email($mail_info, $subject, $message))
