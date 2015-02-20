@@ -17,6 +17,7 @@ if (isset($_GET['product_id']) && $_GET['page'] == 'addtocart') {
 	$index=count($cookieArray);
 		$index+1;
 		
+			
 	if(!in_array($_GET['product_id'], $cookieArray))
 	{
 		$cookieArray[$index] = $_GET['product_id'];

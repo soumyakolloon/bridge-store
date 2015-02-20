@@ -47,7 +47,7 @@
                                 <div>
                                     <table class="table table-bordered table-hover table-striped tablesorter">
                                         <!--<thead>-->
-                                            <tr>
+                                            <tr>                                     
                                                 <th>Image</th>
                                                 <th>Name </th>
                                                 <th>Description </th>

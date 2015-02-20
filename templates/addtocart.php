@@ -39,7 +39,7 @@
             <div class="panel-body">
 				
                 <?php                        
-               //print_r($products); exit;
+              // print_r($products); exit;
                 if (isset($products) && count($products) > 0)
                 {
                 ?>

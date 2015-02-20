@@ -258,15 +258,11 @@ else if ($current_file_name == 'buyitnow') {
             {
                 $prodArr[$r][0] = $prod[0][$r]; 
             }
-            // echo '<pre>';
-            // print_r($prodArr);  exit;
-
-
-
+          
 
             if(!empty($produ) && !empty($prodArr))
            $products = array_merge($prodArr, $produ);
-
+		
 
             else if(!empty($prodArr))
             $products = $prodArr;
@@ -275,24 +271,28 @@ else if ($current_file_name == 'buyitnow') {
 
           /**Avoid duplicate entries from array*/
           
-          $tmarray = $products;
-          $insertArray=array();
+        $tmarray = $products;
+     		
+		$uniquekeys = array();
+		$output     = array();
+		foreach ($products as $item) {
+			foreach($item as $it)
+			if (!in_array($it['id'], $uniquekeys)) {
+				$uniquekeys[] = $it['id'];
+				$output[]     = $it;
+			}
+		}
+		
+		/**make array in expected structure*/
+		
+		foreach($output as $out)
+		{
+			$res[][0] = $out;
+		}
+		
+		$products = $res;
+			
          
-          for($i=0; $i<count($products); $i++)
-          {
-             $c=0;
-
-            for($j=0; $j<count($tmarray); $j++)
-            {
-                if($products[$i][0]['id']==$tmarray[$j][0]['id'])
-                    $c++;
-                if($c>1)
-                    unset($tmarray[$i]);
-            }
-
-          }  
-
-          $products = $tmarray; 
         }
 
        
