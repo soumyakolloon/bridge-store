@@ -424,6 +424,59 @@ public function imageExitence($id)
 	}
 	
 
+
+  /**
+     * Send password reset email
+     * @author Soumya Kolloon
+     * **/
+
+	public function sendMail_welcome($data)
+	{
+		
+				ob_start();
+				/**Send welcome email***/
+                    
+                    
+                     $emails[]   = array(
+                            'email' => $data['email'],
+                            'name'  => ''
+                        );
+			
+					$mail_info = array(
+						'from_email'  => 'team@bridge.in',
+						'from_name'   => 'Bridge Team',
+						'reply_email' => '',
+						'reply_name'  => 'Bridge Team',
+						'to_email'    => $emails
+					);
+				
+				$subject = 'Bridgestore Account Created!';
+				
+						
+				$web_root = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/";
+				
+				$user_email = $data['email'];
+				$user_pwd = $data['password'];
+							
+			include_once 'controller/application-controller.php';
+				$appObj = new AppController();
+				$message = '<div><p>Dear Customer, </p><p>Congratulations! You have successfully created a new account with Bridge Store. Your account details are: </p><p>Registered email ID: '.$user_email.' </p><p>Password: <strong>'.$user_pwd.'</strong></p><p>Start login and enjoy your shopping experience with Bridge Store.</p><p><a href="'.$web_root.'" ><input type="button" value="Start Buying Products" style="color: #fff;background-color: #5bc0de;border-color: #46b8da;"></a></p>';
+				
+                if ($appObj->send_email($mail_info, $subject, $message))
+                {
+					echo 'Password reset successfully. Please check your email to get new password.'; //exit;
+					return true;
+                }
+                else
+                {
+					return false;
+				}
+		
+		
+		
+		
+		
+	}
 	
 
 

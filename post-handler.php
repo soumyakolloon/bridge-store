@@ -16,7 +16,7 @@ if (isset($_REQUEST['action']))
     {
         if (( $_POST['firstname'] ) && ( $_POST['email'] ) && ( $_POST['password'] ) && ( $_POST['confirmpassword'] ))
         {
-			echo 'inside if';
+			
             if (( $_POST['password'] == $_POST['confirmpassword']))
             {
                 include_once 'controller/user-controller.php';
@@ -32,6 +32,48 @@ if (isset($_REQUEST['action']))
                 if ($result)
                 {
                     $_SESSION ['user_registration_success']    = 'Account created successfully';
+                    
+                    
+                    /**Send welcome email***/
+                    
+                    
+                     $emails[]   = array(
+                            'email' => $_POST['email'],
+                            'name'  => ''
+                        );
+			
+					$mail_info = array(
+						'from_email'  => 'team@bridge.in',
+						'from_name'   => 'Bridge Team',
+						'reply_email' => '',
+						'reply_name'  => 'Bridge Team',
+						'to_email'    => $emails
+					);
+				
+				$subject = 'Bridgestore Account Created!';
+				
+				include_once('controller/application-controller.php');
+				$appObj = new AppController();
+				include_once 'PHPMailer/PHPMailerAutoload.php';
+				$web_root = "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/";
+				
+				$user_email = $_POST['email'];
+				$user_pwd = $_POST['password'];
+				
+		
+				//$pwd_change_link = $web_root . 'index.php?page=change-password&email-token='.base64_encode($_POST['email']);		
+			
+				$message = '<div><p>Dear <strong>Customer</strong>, </p><p>Congratulations! You have successfully created a new account with Bridge Store. Your account details are: </p><p>Registered email ID: '.$user_email.' </p><p>Password: <strong>'.$user_pwd.'</strong></p><p>Start login and enjoy your shopping experience with Bridge Store.</p><p><a href="'.$web_root.'index.php?page=login" >'.$web_root.'index.php?page=login</a></p><p>Best Regards,</br>Bridge Store Team.</p>';
+				
+                if ($appObj->send_email($mail_info, $subject, $message))
+                {
+					echo 'Password reset successfully. Please check your email to get new password.';
+					
+                }
+                             
+                
+                    
+                    
                     /*
                      * Registration success
                      * Redirect to login page */
@@ -45,7 +87,7 @@ if (isset($_REQUEST['action']))
                     /*
                      * Registration error (Username already exist)
                      * Redirect to registration page */
-                    $user->redirect("index.php?page=registration");
+                   $user->redirect("index.php?page=registration");
                 }
             }
             else

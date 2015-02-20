@@ -52,10 +52,10 @@
                                                 <th>Name </th>
                                                 <th>Description </th>
                                                 <th>Price </th>
-                                                 <?php if($payment['payment_status']=='Completed')  { ?>  
-                                                <th>Expiry Date for Download</th>
+                                                 <?php //if($payment['payment_status']=='Completed')  { ?>  
+                                               <!-- <th>Expiry Date for Download</th>-->
                                                 
-                                                 <?php } ?>
+                                                 <?php //} ?>
                                                 <th></th>                                                
                                             </tr>
                                         <!--</thead>-->
@@ -80,13 +80,13 @@
                                         <td style="width: 40%"><?php echo $row['description']; ?></td>
                                         <td style="width: 19%"><?php echo '$ '. $row['price']; ?></td>
                                       <?php if($row['payment_status']=='Completed') { ?>  
-                                        <td style="width: 15%"><?php echo (!empty($row['expires_on'])) ? date("d M Y H:i A", strtotime($row['expires_on'])) : ''; ?></td>
+                                        <!--<td style="width: 15%"><?php //echo (!empty($row['expires_on'])) ? date("d M Y H:i A", strtotime($row['expires_on'])) : ''; ?></td>-->
                                         <td style="width: 10%">
                                             <?php
-                                            if( !empty($row['expires_on']) && $row['expires_on'] > date("Y-m-d h:i:s")){
+                                            //if( !empty($row['expires_on']) && $row['expires_on'] > date("Y-m-d h:i:s")){
                                             ?>
                                             <input type="button" name="download_prod" class="btn btn-primary" value="Download" onclick="javascript:window.location.href='<?php echo get_base_url(). 'index.php?page=downloader&token=' . $payment['token'] . '||' . $row['id'] ?>'">
-                                            <?php } ?>
+                                            <?php// } ?>
                                         </td>
                                       <?php }
                                         else {
