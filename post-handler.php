@@ -101,7 +101,7 @@ if (isset($_REQUEST['action']))
         }
         else
         {
-			echo 'inside else';
+			                                             
             /*
              * Registartion error (Mandatory fields are empty)
              *   */

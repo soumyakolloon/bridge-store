@@ -8,7 +8,7 @@
 //if(isset($_GET['status']) && $_GET['status']=='success')
 //{
  // 
-   unset($_COOKIE['id']);
+ 
  
 //}
 
