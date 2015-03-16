@@ -269,7 +269,7 @@ else if ($current_file_name == 'buyitnow') {
             else if(!empty($produ))
             $products = $produ;
 
-          /**Avoid duplicate entries from array*/
+        /**Avoid duplicate entries from array*/
           
         $tmarray = $products;
      		
@@ -283,7 +283,7 @@ else if ($current_file_name == 'buyitnow') {
 			}
 		}
 		
-		/**make array in expected structure*/
+		/**make array in expected structure***/
 		
 		foreach($output as $out)
 		{
