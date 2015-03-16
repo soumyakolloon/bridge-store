@@ -26,7 +26,9 @@ if(isset($_POST))
 			}
 
 		}
+
 		unset($_COOKIE['id']);
+		
 		$cookieArray = array_values($cookieArray);
 		// print_r($data_cookieArray);
 		

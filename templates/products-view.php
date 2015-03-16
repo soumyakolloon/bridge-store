@@ -61,15 +61,19 @@ if(isset($purchased_products) && count($purchased_products)){
 
                 <div class="col-lg-8" style="display: inline">
                     <div class="row">
-                        <?php                        
-						//print_r($products); exit;
+                        <?php  
+
+						//print_r($uniquekeys); exit;
                         if (isset($products) && count($products) > 0)
                         {
                             foreach ($products as $product)
                             {         
                                 $class = '';
-                                if(in_array($product['id'], $purchase_prod))
+                                if(in_array($product['id'], $uniquekeys))
+
+
                                         $class = 'glyphicon glyphicon-ok-circle';
+
                                 ?>
                                 <div class="col-lg-6">
                                     <div class="panel panel-success">

@@ -46,23 +46,14 @@ setcookie('id', serialize($cookieArray), time() + 60 * 60);
 }
 }
 
-// if (isset($_GET['product_id']) && $_GET['page'] == 'delete-product') {
-//    $data = unserialize($_COOKIE['id']);
-    
-//     //print_r($data);
-//     if(empty($data))
-//         $data=array($_GET['product_id']);
+if (isset($_GET['status']) && ($_GET['page'] == 'payment_history') && ($_GET['status']=='success')) {
 
-//     $product_id=$data;
+setcookie("id", "", time()-3600);
 
-//     if(!in_array($_GET['product_id'], $product_id)) {
 
-//   unset($product_id[$_GET['product_id']]);
 
-// }
-    
-//  setcookie('id', serialize($product_id));
-// }
+}
+
 
 
 ?>

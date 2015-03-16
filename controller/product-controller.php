@@ -296,8 +296,8 @@ public function imageExitence($id)
      */
     public function get_purchased_products($user_id, $section = null)
     {
-        if($user_id)
-        {
+        // if($user_id)
+        // {
             $purchased_products = $this->database->get_user_purchased_products($user_id, $section);
             
             if($purchased_products)
@@ -309,11 +309,11 @@ public function imageExitence($id)
             {
                 return false;
             }
-        }
-        else
-        {
-            return false;
-        }
+        // }
+        // else
+        // {
+        //     return false;
+        // }
     }
     
     /**
@@ -477,6 +477,18 @@ public function imageExitence($id)
 		
 		
 	}
+
+
+    /**Get Cart products**/
+    public function get_cartItems($user_id)
+    {
+        $result = $this->database->get_cart_items($user_id);
+        if($result)
+            return $result;
+        else
+            return false;
+
+    }
 	
 	
 

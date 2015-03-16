@@ -323,6 +323,16 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
                 $test[$key] = urldecode($value);
             }
 
+            /**Empty the cart in the case successful payment*/
+
+            // for ($i=0; $i < count($item); $i++) 
+            // {
+            //     $product_ids[$i]     = $httpParsedResponseAr["L_PAYMENTREQUEST_0_NUMBER". $i];                
+            // } 
+
+            
+            
+
             $app->redirect('index.php?page=payment_history&status=success');
         }
         else

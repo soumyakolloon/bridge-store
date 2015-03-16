@@ -90,6 +90,51 @@ if ($current_file_name == 'index') {
     // Get products
 
     $product = new ProductController();
+
+    $productId =array();
+
+     if(isset($_COOKIE['id']))
+    {    
+     $productIdArray = unserialize($_COOKIE["id"]);
+
+    }
+
+    if (!empty($_SESSION ['user_id']))     
+    {
+        $prod = $product->get_cartItems($_SESSION ['user_id']);
+        
+        for($p=0; $p<count($prod); $p++)
+        {
+            $pr[$p] = $prod[$p]['product_id'];
+        }
+
+    }
+
+
+    if(isset($pr) && !empty($pr))
+    {
+        $productId = array_merge($productIdArray, $pr);
+    }
+    else
+    {
+      $productId = $productIdArray;  
+    }
+
+
+
+
+    $uniquekeys= array();
+     for($r=0; $r<count($productId); $r++)
+            {
+            if (!in_array($productId[$r], $uniquekeys)) {
+                $uniquekeys[$r] = $productId[$r];
+               
+            }
+        }
+
+    
+      
+
     //$products = $product->get(array('status' => 1));
     // Get categories
     include_once 'controller/category-controller.php';
@@ -104,13 +149,16 @@ if ($current_file_name == 'index') {
         include_once 'templates/home.php';
     }
     else {
-        if ($application->is_logged_in(0, false)) {
+        //if ($application->is_logged_in(0, false)) {
             
             //get purchased product ids
-            
+           
             $purchase_prod_arr = array();
-            
+           
+
             $purchased_products_array = $product->get_purchased_products($_SESSION['user_id']);
+
+
             if($purchased_products_array!=false)
              $purchase_prod_arr = $purchased_products_array; 
             
@@ -124,7 +172,7 @@ if ($current_file_name == 'index') {
                 $msg = $_SESSION ['user_registration_success'];
                 $_SESSION ['user_registration_success'] = '';
             }
-        }
+       // }
         
         $home_page = true;
         include_once 'templates/home.php';
@@ -467,6 +515,7 @@ else if ($current_file_name == 'delete-product') {
     //     $application->is_logged_in(0);
 
     include_once 'controller/product-controller.php';
+
     $product = new ProductController ();
     $id = $_GET ['id'];
 
@@ -738,6 +787,20 @@ else if ($current_file_name == 'payment_history') {
         $transactions[$products['purchase_id']]['products'][] = $products;
     }
     }
+
+
+    if(isset($_GET['status']) && $_GET['status']=='success')
+    {
+        $cart_item_ids = $product->get_cartItems($_SESSION['user_id']);
+
+        if(count($cart_item_ids)>0)
+            for($c=0; $c<count($cart_item_ids); $c++)
+            {
+                $empty_cart = $product->empty_cart($_SESSION['user_id'], $cart_item_ids[$c]['product_id']);
+            }
+
+    }
+
 
 	//echo 'test'; exit;
     include("templates/payment_history.php");

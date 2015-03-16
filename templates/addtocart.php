@@ -4,6 +4,7 @@
  * Cart page template
  *
  */
+  
 ?>
 
 <script>
@@ -31,9 +32,12 @@
 <div class="mask" style="display:none;"><img id="ajax-loader" src="images/bx_loader.gif"></div>
 <div class="row">
     <div class="col-lg-12">
+         <h1>Shopping Cart</h2>
         <div class="panel panel-primary">
+
+               
             <div class="panel-heading">
-                <h3 class="panel-title" style="width:40%">Shopping Cart</h3>
+                <h3 class="panel-title" style="width:40%">Products</h3>
                 <h3 class="panel-title" style="float:right; width: 24%; margin-top: -18px !important;">Price</h3>
             </div>
             <div class="panel-body">
@@ -268,7 +272,7 @@ flag2=true;
 
 if(!validateEmail(customer_email))
 {
-$('#customer_email_error').text("Please Enter a valid email");
+$('#customer_email_error').text("Please enter a valid email");
 
 flag3=false;
 }

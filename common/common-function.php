@@ -40,10 +40,24 @@ function selectMenuItem($request_page)
     ?>
     <script>
         var selectedPage = '<?php echo $request_page; ?>';
-
+        
         if (selectedPage == 'index') {
             $(document).find('a').each(function() {
                 if ($(this).text() == 'Home') {
+                    $(this).css('color', '#8a6d3b');
+                }
+            });
+        }
+         else if (selectedPage == 'payment_history') {
+            $(document).find('a').each(function() {
+                if ($(this).text() == 'Payment History') {
+                    $(this).css('color', '#8a6d3b');
+                }
+            });
+        }
+         else if (selectedPage == 'addtocart') {
+            $(document).find('a').each(function() {
+                if ($(this).text() == 'Cart') {
                     $(this).css('color', '#8a6d3b');
                 }
             });

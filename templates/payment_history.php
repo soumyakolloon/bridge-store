@@ -4,6 +4,14 @@
  * User payment history page template
  */
 
+
+//if(isset($_GET['status']) && $_GET['status']=='success')
+//{
+ // 
+   unset($_COOKIE['id']);
+ 
+//}
+
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -22,7 +30,7 @@
                             <th>Transaction ID <i class="fa fa-sort"></i></th>
                             <th>Price <i class="fa fa-sort"></i></th>
                             <th>Date <i class="fa fa-sort"></i></th>
-                            <th>Status <i class="fa"></i></th>
+                            <th>Status <i class="fa fa-sort"></i></th>
                             <th></th>        
                         </tr>
                     </thead>

@@ -1223,4 +1223,22 @@ public function product_image_remove($data)
     }
 	
 
+
+    /**Get Cart Items*/
+    public function get_cart_items($user_id)
+    {
+        $query  = "SELECT product_id
+                   FROM " . $this->db_table_prefix . "cart where user_id='".$user_id."'";
+        $result = $this->commonDatabaseAction($query);
+//        if (mysql_num_rows($result) > 0)
+        if ($this->rowCount > 0)
+        {
+            return $this->resultArray($result);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }
