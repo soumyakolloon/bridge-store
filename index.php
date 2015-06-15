@@ -11,9 +11,12 @@ include_once 'common/common-function.php';
 include_once 'PHPMailer/PHPMailerAutoload.php';
 
 php_session_start();
-error_reporting(E_ERROR);
-error_reporting(E_ALL);
-error_reporting(E_NOTICE);
+
+ini_set('display_errors','off');
+
+//error_reporting(E_ERROR);
+//error_reporting(E_ALL);
+//error_reporting(E_NOTICE);
 //error_reporting(0);
 if (!isset($_SESSION ['user_id'])) {
     $_SESSION ['user_id'] = '';
@@ -91,12 +94,18 @@ if ($current_file_name == 'index') {
 
     $product = new ProductController();
 
-    $productId =array();
+
+
+	$productId =array();
 
      if(isset($_COOKIE['id']))
     {    
      $productIdArray = unserialize($_COOKIE["id"]);
 
+    }
+    else
+    {
+        $productIdArray =array();
     }
 
     if (!empty($_SESSION ['user_id']))     
@@ -132,8 +141,8 @@ if ($current_file_name == 'index') {
             }
         }
 
-    
-      
+
+
 
     //$products = $product->get(array('status' => 1));
     // Get categories
@@ -149,16 +158,13 @@ if ($current_file_name == 'index') {
         include_once 'templates/home.php';
     }
     else {
-        //if ($application->is_logged_in(0, false)) {
+        if ($application->is_logged_in(0, false)) {
             
             //get purchased product ids
-           
+            
             $purchase_prod_arr = array();
-           
-
+            
             $purchased_products_array = $product->get_purchased_products($_SESSION['user_id']);
-
-
             if($purchased_products_array!=false)
              $purchase_prod_arr = $purchased_products_array; 
             
@@ -172,7 +178,7 @@ if ($current_file_name == 'index') {
                 $msg = $_SESSION ['user_registration_success'];
                 $_SESSION ['user_registration_success'] = '';
             }
-       // }
+        }
         
         $home_page = true;
         include_once 'templates/home.php';
@@ -243,9 +249,16 @@ else if ($current_file_name == 'buyitnow') {
 
                         if(isset($_COOKIE['id']))
                         {    
-                        $productIdArray = unserialize($_COOKIE["id"]);
+                        $productIdArray = unserialize($_COOKIE["id"]);                     
                         if(!in_array($_GET['product_id'], $productIdArray))
+                        {
                         array_push($productIdArray, $_GET['product_id']);
+                        }else
+                        {  //This sestion is added by Sandra to show  message when try to add already added product to cart
+                            $_SESSION['warning']='Item already added to cart.';
+                            $user->redirect('index.php?page=addtocart');
+		            exit;
+                        }
                          }
                          else
                          {
@@ -317,7 +330,7 @@ else if ($current_file_name == 'buyitnow') {
             else if(!empty($produ))
             $products = $produ;
 
-        /**Avoid duplicate entries from array*/
+          /**Avoid duplicate entries from array*/
           
         $tmarray = $products;
      		
@@ -331,7 +344,7 @@ else if ($current_file_name == 'buyitnow') {
 			}
 		}
 		
-		/**make array in expected structure***/
+		/**make array in expected structure*/
 		
 		foreach($output as $out)
 		{
@@ -515,7 +528,6 @@ else if ($current_file_name == 'delete-product') {
     //     $application->is_logged_in(0);
 
     include_once 'controller/product-controller.php';
-
     $product = new ProductController ();
     $id = $_GET ['id'];
 
@@ -788,8 +800,7 @@ else if ($current_file_name == 'payment_history') {
     }
     }
 
-
-    if(isset($_GET['status']) && $_GET['status']=='success')
+	if(isset($_GET['status']) && $_GET['status']=='success')
     {
         $cart_item_ids = $product->get_cartItems($_SESSION['user_id']);
 
@@ -800,7 +811,6 @@ else if ($current_file_name == 'payment_history') {
             }
 
     }
-
 
 	//echo 'test'; exit;
     include("templates/payment_history.php");
@@ -888,7 +898,7 @@ else if($current_file_name=='change-password')
 	$user = new UserController();
 	$product = new ProductController();
 	
-	if(isset($_POST))
+	if(isset($_POST) && !empty($_POST))
 	{
 		$userDetails = $user->getUserDetailsByemail(base64_decode($_POST['email-token']));
 		
@@ -914,11 +924,12 @@ else if($current_file_name=='change-password')
 			exit;
 			}
 		}
-		/*else
+               // Uncommented this part by Sandra, to print error message while trying to change password using wrong old password
+		else
 		{
 			$user->redirect('index.php?page=change-password&msg=3');
-			//exit;
-		}*/
+			exit;
+		}
 		
 	}
 	

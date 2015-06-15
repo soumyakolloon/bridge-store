@@ -3,16 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/store/download.php</file>
-            <file>file:/C:/wamp/www/store/templates/payment_history.php</file>
-            <file>file:/C:/wamp/www/store/controller/database-controller.php</file>
-            <file>file:/C:/wamp/www/store/process.php</file>
-            <file>file:/C:/wamp/www/store/controller/product-controller.php</file>
-            <file>file:/C:/wamp/www/store/controller/base-controller.php</file>
-            <file>file:/C:/wamp/www/store/index.php</file>
-            <file>file:/C:/wamp/www/store/post-handler.php</file>
-            <file>file:/C:/wamp/www/store/templates/new-product.php</file>
-            <file>file:/C:/wamp/www/store/templates/downloadContent.php</file>
+            <file>file:/C:/wamp/www/bridge-store/templates/categories.php</file>
+            <file>file:/C:/wamp/www/bridge-store/controller/product-controller.php</file>
+            <file>file:/C:/wamp/www/bridge-store/templates/products.php</file>
+            <file>file:/C:/wamp/www/bridge-store/templates/payment_history.php</file>
+            <file>file:/C:/wamp/www/bridge-store/templates/product-detail.php</file>
+            <file>file:/C:/wamp/www/bridge-store/index.php</file>
+            <file>file:/C:/wamp/www/bridge-store/templates/products-view.php</file>
+            <file>file:/C:/wamp/www/bridge-store/fonts/store/templates/registration.php</file>
+            <file>file:/C:/wamp/www/bridge-store/templates/home.php</file>
+            <file>file:/C:/wamp/www/bridge-store/controller/database-controller.php</file>
+            <file>file:/C:/wamp/www/bridge-store/layout/header.php</file>
+            <file>file:/C:/wamp/www/bridge-store/productManagement.php</file>
         </group>
     </open-files>
 </project-private>

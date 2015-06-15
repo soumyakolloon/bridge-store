@@ -4,7 +4,6 @@
  * Cart page template
  *
  */
-  
 ?>
 
 <script>
@@ -32,10 +31,19 @@
 <div class="mask" style="display:none;"><img id="ajax-loader" src="images/bx_loader.gif"></div>
 <div class="row">
     <div class="col-lg-12">
-         <h1>Shopping Cart</h2>
+	<h1>Shopping Cart</h2>
+        <?php
+        if($_SESSION['warning']!=''){
+        ?>
+          <div class="alert alert-warning alert-dismissable" id="warning">
+              <?php echo $_SESSION['warning'];
+              $_SESSION['warning']='';
+              ?>
+          </div>
+     <?php
+        }
+        ?>
         <div class="panel panel-primary">
-
-               
             <div class="panel-heading">
                 <h3 class="panel-title" style="width:40%">Products</h3>
                 <h3 class="panel-title" style="float:right; width: 24%; margin-top: -18px !important;">Price</h3>
@@ -121,28 +129,28 @@
 											
                                          <a id="close-btn" href="#"><img src="img/close.png"></a>
                                          
-                                         <div class="form-group" id="email_field">
+                                        <div class="form-group" id="email_field">
                                         <label>Email:</label>
                                         <input class="form-control" id="customer_email" name="customer_email" placeholder=""  />
                                         <label id="customer_email_error" class='error_msg'></label>
                                         </div>
 										
-										
-										<div id="new_reg_section" style="display:none;">
-										
-										<div class="form-group" id="name_field">
-                                        <label>Your Name:</label>
-                                        <input class="form-control" id="customer_name" name="customer_name" placeholder="" />
-                                        <label id="customer_name_error" class='error_msg'></label>
-                                        </div>
-										
-                                        <div class="form-group" id="password_feild" >
-										<label>Choose Password:</label>
-                                        <input type="password" class="form-control" id="password_set" name="password_set" />
-                                        <label id="password_set_error" class='error_msg'></label>
-                                        </div>
-                                        
-										</div>
+
+                                             <div id="new_reg_section" style="display:none;">
+
+                                                 <div class="form-group" id="name_field">
+                                                     <label>Your Name:</label>
+                                                     <input class="form-control" id="customer_name" name="customer_name" placeholder="" />
+                                                     <label id="customer_name_error" class='error_msg'></label>
+                                                 </div>
+
+                                                 <div class="form-group" id="password_feild" >
+                                                     <label>Choose Password:</label>
+                                                     <input type="password" class="form-control" id="password_set" name="password_set" />
+                                                     <label id="password_set_error" class='error_msg'></label>
+                                                 </div>
+
+                                             </div>
 										
 										
 										

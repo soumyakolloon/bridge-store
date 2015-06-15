@@ -28,8 +28,8 @@ class Configuration
         return array(
             'host'         => 'localhost',
             'user'         => 'root',
-            'password'     => 'root123',
-            'name'         => 'bridge_product_store',
+            'password'     => '',
+            'name'         => 'bridgeoutnl_productstore',
             'table_prefix' => 'bs_'
         );
     }

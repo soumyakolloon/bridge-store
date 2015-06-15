@@ -36,8 +36,7 @@ $total_results = count($products);
                     <?php
                     foreach ($categories as $cat)
                     {
-                        
-                        
+                     
                      ?>
                     <option value="<?php echo $cat['id']; ?>" <?php echo (isset($_GET['cat_id']) && $_GET['cat_id'] == $cat['id']) ? 'selected="selected"' : ''; ?> >
                         <?php echo $cat['name']; ?>
@@ -100,8 +99,8 @@ $total_results = count($products);
                             <tr>
                                 <td> <a href="./index.php?page=product-detail&product_id=<?php echo $row['id'];?>"><?php echo $row['name'] ?></a></td>
                                 <td><?php echo $row['description'] ?></td>
-                                <td><?php echo $row['price'] ?></td>
-                                <td><?php echo $row['validity'] ?></td>
+                                <td><?php echo $row['price'] ?>Rs</td>
+                                <td><?php echo $row['validity'] ?> Days</td>
                                 <td><a href="./index.php?page=product-detail&product_id=<?php echo $row['id']; ?>"><img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100"></a></td>
                                 <td><?php echo ($row['status'] == 1) ? 'Enabled' : 'Disabled'; ?></td>
                                 <td><a class="btn btn-success"  id="product-edit" href="index.php?page=edit-product&id=<?php echo $row['id']; ?>&cat_id=<?php echo $_GET['cat_id']; ?>">Edit</a></td>

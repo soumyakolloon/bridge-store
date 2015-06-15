@@ -9,8 +9,9 @@
 
 if(isset($_POST))
 {
+   
 $data['name']         = $_POST['product-name'];
-$data['description']  = $_POST['product-desc'];
+$data['description']  = $_POST['neweditor'];
 $data['cat_id']       = $_POST['product-cat'];
 $data['price']        = $_POST['product-price'];
 $data['validity']     = $_POST['product-validity'];

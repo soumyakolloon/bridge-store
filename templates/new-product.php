@@ -24,6 +24,12 @@ font-style: italic;
 }
 </style>
 
+
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+
+
+
+
 <div class="row">
 <div class="col-lg-12">
 <h1>Product <small></small></h1>
@@ -45,14 +51,21 @@ font-style: italic;
 </div>
 <div class="form-group">
 <label>Description </label>
-<!--<textarea class="form-control" rows="3" id="product-desc" name="product-desc"></textarea>-->
-<?php if(isset($product_info)) { $desc = $product_info['description']; } ?>
+
+<textarea id="neweditor" name="neweditor" >
+<?php 
+if(isset($product_info)) { $desc = $product_info['description']; } ?>
 <?php
 if(isset($desc))
-echo wysiwyg('wysiwyg_id', 'product-desc', $desc); 
+echo $desc; 
 else
-echo wysiwyg('wysiwyg_id', 'product-desc', 'Add description here'); 
+echo ''; 
 ?>
+</textarea>
+
+
+<!--<textarea class="form-control" rows="3" id="product-desc" name="product-desc"></textarea>-->
+
 <label id="product-desc-error" class='error_msg'></label>
 
 </div>
@@ -196,8 +209,12 @@ else if (!isset($product_info))
 
 </div>
 </div>
+    
 
 
+<script type="text/javascript">
+var neditor = CKEDITOR.replace( 'neweditor' );
+</script>
 
 
 <script type="text/javascript">
@@ -391,7 +408,7 @@ var flag=true;
 
 
 var prodName=$('#product-name').val();
-var prodDesc=$('#product-desc').val();
+var prodDesc=$('#neweditor').val();
 var prodPrice=$('#product-price').val();
 // var prodCat = $('#product-cat option:selected').val();
 var productvalidity=$('#product-validity').val();

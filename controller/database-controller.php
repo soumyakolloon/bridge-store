@@ -848,7 +848,7 @@ public function force_user_registration($first_name, $last_name, $email, $userna
                    LEFT JOIN " . $this->db_table_prefix . "purchase_products pr ON pr.purchase_id = d.purchase_id  
                    WHERE d.token = '$conditionalArray[0]' and pr.expires_on > '".date('Y-m-d h:i:s')."' ". $condition;
         
-        //echo $query; exit;
+        echo $query; exit;
         $result = $this->commonDatabaseAction($query);
 //        if (mysql_num_rows($result) > 0)
         if ($this->rowCount > 0)
@@ -1221,10 +1221,8 @@ public function product_image_remove($data)
             return null;
         }
     }
-	
 
-
-    /**Get Cart Items*/
+ /**Get Cart Items*/
     public function get_cart_items($user_id)
     {
         $query  = "SELECT product_id
@@ -1240,5 +1238,6 @@ public function product_image_remove($data)
             return null;
         }
     }
+	
 
 }

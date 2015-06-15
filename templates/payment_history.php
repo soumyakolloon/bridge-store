@@ -4,14 +4,6 @@
  * User payment history page template
  */
 
-
-//if(isset($_GET['status']) && $_GET['status']=='success')
-//{
- // 
- 
- 
-//}
-
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -50,83 +42,60 @@
                             </td>
                         </tr>
                         
-                        <tr class="prod_details" id="<?php echo $payment['purchase_id']; ?>" style="display: none;">
-                            <td colspan="6">
+                        <div class="prod_details" id="<?php echo $payment['purchase_id']; ?>" style="display: none;">
+                           <h2>Products</h2>
                                 <div>
-                                    <table class="table table-bordered table-hover table-striped tablesorter">
-                                        <!--<thead>-->
-                                            <tr>                                     
-                                                <th>Image</th>
-                                                <th>Name </th>
-                                                <th>Description </th>
-                                                <th>Price </th>
-                                                 <?php //if($payment['payment_status']=='Completed')  { ?>  
-                                               <!-- <th>Expiry Date for Download</th>-->
-                                                
-                                                 <?php //} ?>
-                                                <th></th>                                                
-                                            </tr>
-                                        <!--</thead>-->
-                                        <!--<tbody>-->
-                                            
-                                        
-                        <?php
-                        
-                                                
-                        foreach ($payment['products'] as $row)
-                        {
-                           
-                            
-                            ?>
-                                    <tr>
-                                        <td style="width: 1%"><img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100" /></td>
-                                        <td style="width: 15%">
-                                        <a href="./index.php?page=product-detail&product_id=<?php echo $row['id']; ?>">
-                                            <?php echo $row['name']; ?>
-                                        </a>
-                                        </td>
-                                        <td style="width: 40%"><?php echo $row['description']; ?></td>
-                                        <td style="width: 19%"><?php echo '$ '. $row['price']; ?></td>
-                                      <?php if($row['payment_status']=='Completed') { ?>  
-                                        <!--<td style="width: 15%"><?php //echo (!empty($row['expires_on'])) ? date("d M Y H:i A", strtotime($row['expires_on'])) : ''; ?></td>-->
-                                        <td style="width: 10%">
-                                            <?php
-                                            //if( !empty($row['expires_on']) && $row['expires_on'] > date("Y-m-d h:i:s")){
-                                            ?>
-                                            <input type="button" name="download_prod" class="btn btn-primary" value="Download" onclick="javascript:window.location.href='<?php echo get_base_url(). 'index.php?page=downloader&token=' . $payment['token'] . '||' . $row['id'] ?>'">
-                                            <?php// } ?>
-                                        </td>
-                                      <?php }
-                                        else {
-                                       ?>
-                                <td style="width: 10%">
-                                    <div>
-                                        <a href="./index.php?page=buyitnow&product_id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-primary">Buy It Now</button></a>
-                                        <!-- <a href="./index.php?page=addtocart&product_id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-primary">Add to cart</button></a> -->
-                                    </div>
-                                </td>
-                                       <?php } ?>
-                                    </tr>
-                                
-                                    <?php
+                                   <div class="table table-bordered table-hover table-striped tablesorter">
+                                <?php
+                                foreach ($payment['products'] as $row)
+                                {
+                                ?>                            
+                                <p>Image: <img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100" /></p>
+                                <p>Name:  <a href="./index.php?page=product-detail&product_id=<?php echo $row['id']; ?>">
+                                <?php echo $row['name']; ?>
+                                </a></p>
+                                <p>Description: <?php echo $row['description']; ?></p>
+                                <p>Price: <?php echo '$ '. $row['price']; ?></p>
+                                <?php if($row['payment_status']=='Completed') { ?>  
+                                <input type="button" name="download_prod" class="btn btn-primary" value="Download" onclick="javascript:window.location.href='<?php echo get_base_url(). 'index.php?page=downloader&token=' . $payment['token'] . '||' . $row['id'] ?>'">
+                                <?php }
+                                else {
+                                ?>
+
+                                <a href="./index.php?page=buyitnow&product_id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-primary">Buy It Now</button></a>
+                                <!-- <a href="./index.php?page=addtocart&product_id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-primary">Add to cart</button></a> -->
+
+
+                                <?php } ?>
+
+                                <?php
                                 }
                                 ?>
-                                    <!--</tbody>-->
-                                    </table>
+
                                     </div>
-                            </td>
-                        </tr>
+                                    </div>
+                           </div>
+                      
                         <?php
                         }
                         ?>
                     </tbody>
                 </table>
+                
+                
+                 
             </div>
             <?php
         }else{
             echo '<div class="table-responsive" id="category-list">No Payment Record Found !</div>';
         }
         ?>
+        
+        
+        
+                    
+        
+        
     </div>
 </div>
 <!-- Page Specific Plugins -->
@@ -138,10 +107,23 @@
     function displayDetails(id){
         
         if($('#'+id).css('display') == 'none'){
-            $('#'+id).css({'display':'table-row'});
+            $('#'+id).css({'display':'block'});
         }
         else{
             $('#'+id).css({'display':'none'});
         }
     }
+    
+//    function displayDetails(id){
+//        
+//        if($('#'+id).css('display') == 'none'){
+//           $('#'+id).siblings().hide();
+//            $('#'+id).css('display', 'block');
+//           
+//        }
+//        else{
+//            $('#'+id).css({'display':'none'});
+//            $('#'+id).siblings().show();
+//        }
+//    }
 </script>
