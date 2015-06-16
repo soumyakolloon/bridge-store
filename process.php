@@ -106,7 +106,9 @@ if ($_POST) //Post Data received from product list page.
             $expire_timestamp = date('Y-m-d h:i:s', $expires_on);
                     
             $item_number = $products['itemnumber']; // item number
-            
+             $product = new ProductController();
+             $product->empty_cart($_SESSION['user_id'],$item_number);
+                    
             $query = "INSERT INTO bs_purchase_products(purchase_id, product_id, expires_on) VALUES ($purchase_id, $item_number, '$expire_timestamp')";
             $insert_row = $mysqli->query($query);
             
@@ -274,7 +276,10 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
             {
                 $product_ids[]     = $httpParsedResponseAr["L_PAYMENTREQUEST_0_NUMBER". $i];                
             }
-
+            
+            
+            
+           
             if ($purchase_id)
             {
                 // Save purchase data
@@ -304,7 +309,7 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
                     }
                     // Send an email to buyer with the download link                                        
                     $product = new ProductController();
-                    
+                   
                                    
                     $product->generate_download_link($purchase_id, $emails, $product_ids, $config['base_path']);
                 }
@@ -322,7 +327,7 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
                 $value      = preg_replace('/(.*[^%^0^D])(%0A)(.*)/i', '${1}%0D%0A${3}', $value); // IPN fix
                 $test[$key] = urldecode($value);
             }
-
+           
             $app->redirect('index.php?page=payment_history&status=success');
         }
         else

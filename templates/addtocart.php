@@ -47,6 +47,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title" style="width:40%">Products</h3>
                 <h3 class="panel-title" style="float:right; width: 24%; margin-top: -18px !important;">Price</h3>
+                <h3 class="panel-title" style="width: 29%; float: right; margin-right: -358px; margin-top: -18px;">Delete</h3>
             </div>
             <div class="panel-body">
 				

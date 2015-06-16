@@ -150,7 +150,7 @@ class AppController
             // 0 = off (for production use)
             // 1 = client messages
             // 2 = client and server messages
-            $mail->SMTPDebug = 0;
+            $mail->SMTPDebug = 1;
             //Ask for HTML-friendly debug output
             $mail->Debugoutput = 'html';
             //Set the hostname of the mail server
@@ -161,7 +161,7 @@ class AppController
             $mail->Port = 465;
 
             //Set the encryption system to use - ssl (deprecated) or tls
-            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPSecure = 'tsl';
 
             //Whether to use SMTP authentication
             $mail->SMTPAuth = true;
@@ -201,7 +201,7 @@ class AppController
             if (!$mail->send())
             {
              echo 'Message could not be sent.';
-           echo 'Mailer Error: ' . $mail->ErrorInfo; exit;  
+            echo 'Mailer Error: ' . $mail->ErrorInfo; exit;  
                 return false;
             }
             else

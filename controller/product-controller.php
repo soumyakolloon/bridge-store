@@ -300,6 +300,8 @@ public function imageExitence($id)
         {
             $purchased_products = $this->database->get_user_purchased_products($user_id, $section);
             
+          
+            
             if($purchased_products)
             {
                 return $purchased_products;

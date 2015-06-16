@@ -58,7 +58,7 @@ $total_results = count($allusers);
                             $row = $allusers[$i];
                             ?>
                             <tr>
-                                <td><?php echo $row['username'] ?></td>
+                                <td><?php echo $row['firstname']." ".$row['lastname']; ?></td>
                                 <td><?php echo $row['firstname'] ?></td>
                                 <td><?php echo $row['lastname'] ?></td>
                                 <td><?php echo $row['email'] ?></td>

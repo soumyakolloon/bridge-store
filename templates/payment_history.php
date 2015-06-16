@@ -41,8 +41,7 @@
                                 <input type="button" name="view_prod" class="btn btn-primary" value="View Products" onclick="javascript:displayDetails('<?php echo $payment['purchase_id']; ?>')">
                             </td>
                         </tr>
-                        
-                        <div class="prod_details" id="<?php echo $payment['purchase_id']; ?>" style="display: none;">
+                         <div class="prod_details" id="<?php echo $payment['purchase_id']; ?>" style="display: none;">
                            <h2>Products</h2>
                                 <div>
                                    <div class="table table-bordered table-hover table-striped tablesorter">
@@ -50,8 +49,8 @@
                                 foreach ($payment['products'] as $row)
                                 {
                                 ?>                            
-                                <p>Image: <img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100" /></p>
-                                <p>Name:  <a href="./index.php?page=product-detail&product_id=<?php echo $row['id']; ?>">
+                                <p>Image: <a href="./index.php?page=product-detail&product_id=<?php echo $row['product_id']; ?>"><img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100" /></a></p>
+                                <p>Name:  <a href="./index.php?page=product-detail&product_id=<?php echo $row['product_id']; ?>">
                                 <?php echo $row['name']; ?>
                                 </a></p>
                                 <p>Description: <?php echo $row['description']; ?></p>
@@ -75,27 +74,18 @@
                                     </div>
                                     </div>
                            </div>
-                      
+                       
                         <?php
                         }
                         ?>
                     </tbody>
                 </table>
-                
-                
-                 
             </div>
             <?php
         }else{
             echo '<div class="table-responsive" id="category-list">No Payment Record Found !</div>';
         }
         ?>
-        
-        
-        
-                    
-        
-        
     </div>
 </div>
 <!-- Page Specific Plugins -->
@@ -107,23 +97,10 @@
     function displayDetails(id){
         
         if($('#'+id).css('display') == 'none'){
-            $('#'+id).css({'display':'block'});
+            $('#'+id).css({'display':'table-row'});
         }
         else{
             $('#'+id).css({'display':'none'});
         }
     }
-    
-//    function displayDetails(id){
-//        
-//        if($('#'+id).css('display') == 'none'){
-//           $('#'+id).siblings().hide();
-//            $('#'+id).css('display', 'block');
-//           
-//        }
-//        else{
-//            $('#'+id).css({'display':'none'});
-//            $('#'+id).siblings().show();
-//        }
-//    }
 </script>

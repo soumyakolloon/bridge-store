@@ -63,7 +63,7 @@ if (isset($_REQUEST['action']))
 		
 				//$pwd_change_link = $web_root . 'index.php?page=change-password&email-token='.base64_encode($_POST['email']);		
 			
-				$message = '<div><p>Dear <strong>Customer</strong>, </p><p>Congratulations! You have successfully created a new account with Bridge Store. Your account details are: </p><p>Registered email ID: '.$user_email.' </p><p>Password: <strong>'.$user_pwd.'</strong></p><p>Start login and enjoy your shopping experience with Bridge Store.</p><p><a href="'.$web_root.'index.php?page=login" >'.$web_root.'index.php?page=login</a></p><p>Best Regards,</br>Bridge Store Team.</p>';
+		$message = '<div><p>Dear <strong>Customer</strong>, </p><p>Congratulations! You have successfully created a new account with Bridge Store. Your account details are: </p><p>Registered email ID: '.$user_email.' </p><p>Password: <strong>'.$user_pwd.'</strong></p><p>Start login and enjoy your shopping experience with Bridge Store.</p><p><a href="'.$web_root.'index.php?page=login" >'.$web_root.'index.php?page=login</a></p><p>Best Regards,</br>Bridge Store Team.</p>';
 				
                 if ($appObj->send_email($mail_info, $subject, $message))
                 {
@@ -429,6 +429,23 @@ if (isset($_REQUEST['action']))
         if ($_POST['id'])
             $var = $users->user_update($_POST);
         
+        if (isset($_SESSION['user_id'])&& $_SESSION['user_id']==$_POST['id'])
+        {
+            unset($_SESSION[$_POST['id']]);
+//            unset($_SESSION['user_first_name']);
+//            unset($_SESSION['user_last_name']);
+//            unset($_SESSION['user_role']);
+//            unset($_SESSION['user_login_error']);
+//            unset($_SESSION['user_registration_error']);
+//            unset($_SESSION['user_registration_password_error']);
+//            unset($_SESSION['user_registration_username_error']);
+//            unset($_SESSION['user_registration_post']);
+//            unset($_SESSION['buy_it_now_product_id']);
+//            unset($_SESSION['add_to_cart_product_id']);
+
+            $applicationController = new UserController();
+            $applicationController->redirect('index.php');
+        }
         
         /* Redirect to categories page */
         $users->redirect("index.php?page=customers&pageNo=". $_GET['page']);

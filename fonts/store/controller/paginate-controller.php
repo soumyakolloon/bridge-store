@@ -123,6 +123,9 @@ Class PaginateController
             $out.= "<span style='font-size:11px'>" . $nextlabel . "</span>\n";
         }
         $out.= "";
+        
+        
+        
         return $out;
     }
 

@@ -84,10 +84,12 @@ Class PaginateController
         }
         elseif ($page == 2)
         {
+            
             $out.= "<li><a  href=\"" . $reload . "\">" . $prevlabel . "</a>\n</li>";
         }
         else
         {
+            
             $out.= "<li><a  href=\"" . $reload . "&amp;pageNo=" . ($page - 1) . "\">" . $prevlabel . "</a>\n</li>";
         }
 
@@ -97,7 +99,7 @@ Class PaginateController
         {
             if ($i == $page)
             {
-                $out.= "<li  class=\"active\"><a href=''>" . $i . "</a></li>\n";
+                $out.= "<li  class=\"active\"><a href='' style='background-color: #ddd; text-decoration: none;'>" . $i . "</a></li>\n";
             }
             elseif ($i == 1)
             {
@@ -108,12 +110,13 @@ Class PaginateController
                 $out.= "<li><a  href=\"" . $reload . "&amp;pageNo=" . $i . "\">" . $i . "</a>\n</li>";
             }
         }
-
+        
         if ($page < ($tpages - $adjacents))
         {
-            $out.= "<a style='font-size:11px' href=\"" . $reload . "&amp;pageNo=" . $tpages . "\">" . $tpages . "</a>\n";
+            $out.= "<li><a style='font-size:11px' href=\"" . $reload . "&amp;pageNo=" . $tpages . "\">Last>></a></li>\n";
         }
         // next
+       
         if ($page < $tpages)
         {
             $out.= "<li><a  href=\"" . $reload . "&amp;pageNo=" . ($page + 1) . "\">" . $nextlabel . "</a>\n</li>";
@@ -123,6 +126,8 @@ Class PaginateController
             $out.= "<span style='font-size:11px'>" . $nextlabel . "</span>\n";
         }
         $out.= "";
+        
+      
         return $out;
     }
 

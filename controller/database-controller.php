@@ -277,6 +277,7 @@ class DataBaseController extends BaseController
         	       FROM " . $this->db_table_prefix . "products p
                    LEFT JOIN " . $this->db_table_prefix . "categories c ON p.cat_id = c.id 
         	       WHERE p.id = ".$id." and p.status=1";
+				   
 
         $result = $this->commonDatabaseAction($query);
        // print_r($this->rowCount); exit;
@@ -372,6 +373,7 @@ class DataBaseController extends BaseController
 
         if (isset($data['id']))
         {
+			
             $setValues = '';
 
             foreach ($data as $key => $val)
@@ -387,7 +389,7 @@ class DataBaseController extends BaseController
                      " . $this->db_table_prefix . "products
             	     SET " . $setValues . "
             	     WHERE id = " . $data['id'];
-           
+          
         }
         else
         {
@@ -848,7 +850,7 @@ public function force_user_registration($first_name, $last_name, $email, $userna
                    LEFT JOIN " . $this->db_table_prefix . "purchase_products pr ON pr.purchase_id = d.purchase_id  
                    WHERE d.token = '$conditionalArray[0]' and pr.expires_on > '".date('Y-m-d h:i:s')."' ". $condition;
         
-        echo $query; exit;
+        //echo $query; exit;
         $result = $this->commonDatabaseAction($query);
 //        if (mysql_num_rows($result) > 0)
         if ($this->rowCount > 0)
@@ -862,6 +864,7 @@ public function force_user_registration($first_name, $last_name, $email, $userna
     }
 
     /**
+	
      * Get the product info from the download token
      * @param string $token
      * @return array
@@ -896,7 +899,7 @@ public function force_user_registration($first_name, $last_name, $email, $userna
     {
         if ($user_id)
         {
-            $condition = ($user_id == 'all') ? '1' : "pr.user_id = $user_id ";
+         /*   $condition = ($user_id == 'all') ? '1' : "pr.user_id = $user_id ";
             
             $query  = "SELECT p . * , pr.id as purchase_id, pr.transaction_id, pr.date_time, pr.total_price, pr.payment_status, 
                     d.token, pp.expires_on, pp.download_count FROM " 
@@ -905,13 +908,27 @@ public function force_user_registration($first_name, $last_name, $email, $userna
                     . $this->db_table_prefix . "products p ON pp.product_id = p.id LEFT JOIN " 
                     . $this->db_table_prefix . "downloads d ON pr.id = d.purchase_id LEFT JOIN "
                     . $this->db_table_prefix . "users u ON pr.user_id = u.id "
-                    . "Where ".$condition ."group BY pp.id DESC";
+                    . "Where ".$condition ."group BY pp.id DESC";*/
+					
+			$condition = ($user_id != 'all') ? "pr.user_id = $user_id ": null;
+            
+            $query  = "SELECT p . * , pr.id as purchase_id, pr.transaction_id, pr.date_time, pr.total_price, pr.payment_status, 
+                      d.token, pp.expires_on, pp.download_count,pp.product_id, u. * FROM " 
+                    . $this->db_table_prefix . "purchase_products pp LEFT JOIN " 
+                    . $this->db_table_prefix . "purchases pr ON pp.purchase_id = pr.id LEFT JOIN "
+                    . $this->db_table_prefix . "products p ON pp.product_id = p.id LEFT JOIN " 
+                    . $this->db_table_prefix . "downloads d ON pr.id = d.purchase_id LEFT JOIN "
+                    . $this->db_table_prefix . "users u ON pr.user_id = u.id ";
+             if($condition!=null)
+              $query.= "Where ".$condition;
+            
+                $query.= "group BY pp.id DESC";
                 
 			//echo $query; exit;	
             
             $result = $this->commonDatabaseAction($query);            
             
-
+			
             if ($this->rowCount > 0)
             {
 				

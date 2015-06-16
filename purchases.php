@@ -58,9 +58,11 @@ $total_results = count($transactions);
                                 break;
                             }
                             $payment = $transactions[$i];
+                            
+                           
                         ?>
                             <tr>
-                                <td><?php echo $payment['user']; ?></td>
+                                <td><?php echo $payment['transaction_user']; ?></td>
                                 <td><?php echo $payment['email']; ?></td>
                                 <td><?php echo $payment['transaction_id']; ?></td>
                                 <td><?php echo '$ '. $payment['total_price']; ?></td>
@@ -90,8 +92,8 @@ $total_results = count($transactions);
                                         {
                                             ?>
                                         <tr>
-                                            <td style="width: 1%"><a href="./index.php?page=product-detail&product_id=<?php echo $row['id']; ?>"><img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100" /></a></td>
-                                            <td style="width: 15%"><a href="./index.php?page=product-detail&product_id=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></a></td>
+                                            <td style="width: 1%"><a href="./index.php?page=product-detail&product_id=<?php echo $row['product_id']; ?>"><img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100" /></a></td>
+                                            <td style="width: 15%"><a href="./index.php?page=product-detail&product_id=<?php echo $row['product_id']; ?>"><?php echo $row['name']; ?></a></td>
                                             <td style="width: 40%"><?php echo $row['description']; ?></td>
                                             <td style="width: 19%"><?php echo '$ '. $row['price']; ?></td>
                                             <td style="width: 15%"><?php echo (!empty($row['expires_on'])) ? date("d M Y h:i A", strtotime($row['expires_on'])) : ''; ?></td>

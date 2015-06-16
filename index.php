@@ -21,7 +21,18 @@ ini_set('display_errors','off');
 if (!isset($_SESSION ['user_id'])) {
     $_SESSION ['user_id'] = '';
 }
-
+else
+{
+  // echo $_SESSION['user_id'];
+  $userObj = new UserController();
+  $userDetails = $userObj->get(array('id'=>$_SESSION['user_id']));
+  if($userDetails[0]['status']!=1)
+  {
+   
+      $_SESSION ['user_id'] = '';
+  }
+  
+}
 
 $user = new UserController ();
 $application = new AppController ();
@@ -606,6 +617,9 @@ else if ($current_file_name == 'purchases') {
         $transactions[$products['purchase_id']]['token'] = $products['token'];
         $transactions[$products['purchase_id']]['user'] = $products['user'];
         $transactions[$products['purchase_id']]['email'] = $products['email'];
+        $transactions[$products['purchase_id']]['firstname'] = $products['firstname'];
+        $transactions[$products['purchase_id']]['lastname'] = $products['lastname'];
+        $transactions[$products['purchase_id']]['transaction_user'] = $products['firstname']." ".$products['lastname'];
         $transactions[$products['purchase_id']]['products'][] = $products;
     }
     $transactions = array_values($transactions);
