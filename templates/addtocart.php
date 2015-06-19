@@ -33,6 +33,10 @@
     <div class="col-lg-12">
 	<h1>Shopping Cart</h2>
         <?php
+        if(isset($_GET['user_stat']) && $_GET['user_stat']==0)
+        {?>
+            <div class="error_msg" style="font-size:13px;">The user <?php echo $_GET['username']; ?> is inactive. Please contact administrator to make it active.</div>
+        <?php }
         if($_SESSION['warning']!=''){
         ?>
           <div class="alert alert-warning alert-dismissable" id="warning">
@@ -126,7 +130,7 @@
                                         
                                         <form enctype="multipart/form-data" method="POST">
                                         <div class="mask" style="display:none; width:500px; height:300px; left:0px; top:0px;">
-											<img id="ajax-loader" style="margin-left:250px; margin-top:150px;" src="images/bx_loader.gif"></div>
+			                <img id="ajax-loader" style="margin-left:250px; margin-top:150px;" src="images/bx_loader.gif"></div>
 											
                                          <a id="close-btn" href="#"><img src="img/close.png"></a>
                                          
@@ -256,6 +260,8 @@ function checkLogin()
 
 function fieldvalidate()
 {
+ 
+          
     var flag=true;
     var flag1=true;
     var flag2=true;
@@ -385,22 +391,30 @@ else
 {
 $('.mask').show();
 
-$.ajax({
-url: "makeLogin.php",
-type: 'POST',
-data: d,
-success: function (resp) {
-//$.parseJSON(resp);
+        $.ajax({
+        url: "makeLogin.php",
+        type: 'POST',
+        data: d,
+        success: function (resp) {
+        //$.parseJSON(resp);
+       
+        
+        if(resp==1)
+        {
+            
+            window.location.href="index.php?page=addtocart&user_stat=0&username="+$('#customer_email').val();
+            
+        }
 
-console.info(resp.user_id);
-if(resp!=0)
-{
-   $('.mask').hide();
-   $( "#close-btn" ).trigger( "click" );
-   window.location.href="index.php?page=addtocart";
-
-}
-}
+        else if(resp!=0 && resp!=1)
+        {
+           
+           $('.mask').hide();
+           $( "#close-btn" ).trigger( "click" );
+         window.location.href="index.php?page=addtocart";
+        
+        }
+        }
 });
 
 }

@@ -387,7 +387,7 @@ public function imageExitence($id)
                         );
 			
 			$mail_info = array(
-						'from_email'  => '',
+						'from_email'  => 'team@bridge-india.com',
 						'from_name'   => 'Bridge Team',
 						'reply_email' => '',
 						'reply_name'  => 'Bridge Team',

@@ -1,5 +1,4 @@
 <?php
-
 include('config.php');
 include_once 'PHPMailer/PHPMailerAutoload.php';
 include_once 'common/common-function.php';
@@ -106,9 +105,9 @@ if ($_POST) //Post Data received from product list page.
             $expire_timestamp = date('Y-m-d h:i:s', $expires_on);
                     
             $item_number = $products['itemnumber']; // item number
-             $product = new ProductController();
-             $product->empty_cart($_SESSION['user_id'],$item_number);
-                    
+            $product = new ProductController();
+            $product->empty_cart($_SESSION['user_id'],$item_number);
+			
             $query = "INSERT INTO bs_purchase_products(purchase_id, product_id, expires_on) VALUES ($purchase_id, $item_number, '$expire_timestamp')";
             $insert_row = $mysqli->query($query);
             
@@ -184,11 +183,17 @@ if ($_POST) //Post Data received from product list page.
     {
         //Redirect user to PayPal store with Token received.
         $paypalurl = 'https://www' . $paypalmode . '.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=' . $httpParsedResponseAr["TOKEN"] . '';
-        header('Location: ' . $paypalurl);
+        //header('Location: ' . $paypalurl);
+        if (headers_sent()) {
+    die("Redirect failed. Please click on this link: <a href='".$paypalurl."'>paypal</a>");
+}
+else{
+    exit(header("Location: ".$paypalurl));
+}
     }
     else
     {
-        echo 'eeee';
+         
         $_SESSION['payment_error_detail'] = $httpParsedResponseAr["L_LONGMESSAGE0"];
         $app->redirect('index.php?page=paymentResponse&status=error');
     }
@@ -276,10 +281,7 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
             {
                 $product_ids[]     = $httpParsedResponseAr["L_PAYMENTREQUEST_0_NUMBER". $i];                
             }
-            
-            
-            
-           
+
             if ($purchase_id)
             {
                 // Save purchase data
@@ -309,9 +311,8 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
                     }
                     // Send an email to buyer with the download link                                        
                     $product = new ProductController();
-                   
-                                   
-                    $product->generate_download_link($purchase_id, $emails, $product_ids, $config['base_path']);
+                 		
+				   $product->generate_download_link($purchase_id, $emails, $product_ids, $config['base_path']);
                 }
                 else
                 {
@@ -327,7 +328,10 @@ if (isset($_GET["token"]) && isset($_GET["PayerID"]))
                 $value      = preg_replace('/(.*[^%^0^D])(%0A)(.*)/i', '${1}%0D%0A${3}', $value); // IPN fix
                 $test[$key] = urldecode($value);
             }
-           
+			
+			$product = new ProductController();
+                    
+            $product->empty_cart($_SESSION['user_id'],$product_ids);
             $app->redirect('index.php?page=payment_history&status=success');
         }
         else

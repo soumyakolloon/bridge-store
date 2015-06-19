@@ -56,6 +56,8 @@ $total_results = count($allusers);
                                 break;
                             }
                             $row = $allusers[$i];
+                           
+                            $user_full_name = $row['firstname']." ".$row['lastname']; 
                             ?>
                             <tr>
                                 <td><?php echo $row['firstname']." ".$row['lastname']; ?></td>
@@ -64,7 +66,11 @@ $total_results = count($allusers);
                                 <td><?php echo $row['email'] ?></td>
                                 <td><?php echo ($row['status'] == 1) ? 'Active' : 'Inactive'; ?></td>
                                 <td><input type="button" name="view_user" class="btn btn-success" value="Edit" onclick="javascript:displayDetails('<?php echo $row['id']; ?>')"></td>
-                                <td><a class="btn btn-danger" id="product-delete" href="index.php?page=customer_delete&id=<?php echo $row['id']; ?>">Delete</a></td>
+                                <td>
+                                    
+                                <a class="btn btn-danger" id="product-delete" onclick="javascript:confirmDelete(<?php echo $row['id']; ?>, '<?php echo $user_full_name; ?>' );">Delete</a>
+                                
+                                </td>
                             </tr>
                             <tr class="prod_details" id="<?php echo $row['id']; ?>" style="display: none;">
                                 <td colspan="7">
@@ -74,8 +80,8 @@ $total_results = count($allusers);
                                         <table class="table table-bordered table-hover table-striped tablesorter">                                            
                                         <tr>
                                             <td>
-                                                <?php echo $row['username'] ?>
-                                                <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                                            <?php echo $row['username']; ?>
+                                            <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                             </td>
                                             <td><?php echo $row['firstname'] ?></td>
                                             <td><?php echo $row['lastname'] ?></td>
@@ -117,4 +123,17 @@ $total_results = count($allusers);
             $('#'+id).css({'display':'none'});
         }
     }
+    
+//    href="index.php?page=customer_delete&id="
+    
+    function confirmDelete(customer_id,username)
+    {
+        if(confirm("Are you sure, you want to delete the customer "+username+"?"))
+            
+        {
+            window.location.href = 'index.php?page=customer_delete&id='+customer_id;
+        }
+        
+    }
+    
 </script>

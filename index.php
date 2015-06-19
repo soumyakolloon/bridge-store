@@ -281,6 +281,7 @@ else if ($current_file_name == 'buyitnow') {
                 }
                else
                 {
+                  
                         if(isset($_COOKIE['id']))
                           
                         $productIdArray = unserialize($_COOKIE["id"]);
@@ -489,9 +490,10 @@ else if ($current_file_name == 'product-detail') {
 
 		//echo '<pre>';
      //print_r($productArray); exit;
+    
 
     include_once 'templates/product-detail.php';
-
+    
 
 }
 
@@ -649,6 +651,7 @@ else if ($current_file_name == 'customers') {
     $users = new UserController();
     $allusers = $users->get();
     
+   
     include_once 'customers.php';
 }
 
@@ -664,7 +667,7 @@ else if ($current_file_name == 'products-view') {
             'p.status' => '1'));
         
         if (count($products) > 0) {
-            $cat_name = (isset($products[0]['catName'])) ? $products[0]['catName'] : '';
+            $cat_name = (isset($products[0]['catName'])) ? $products[0]['catName']: '';
         }
         else {
             $cat_name = '';
@@ -765,16 +768,12 @@ else if ($current_file_name == 'paymentResponse') {
             $path = $config['uploads_folder'];
             // Download file                              
             //$product->download_file($path, $filename);
-            
-           		
            
-            
             include("templates/downloadContent.php");
-            
-            //printf("<script>location.href='download.php?token=$token'</script>");
+          //printf("<script>location.href='download.php?token=$token'</script>");
         }
         else {
-            echo 'Invalid Token';
+            echo 'Invalid Tokendxfdd';
         }
     }
     
@@ -905,8 +904,8 @@ include('templates/forgot-password.php');
 }
 
 
-else if($current_file_name=='change-password')
-{
+    else if($current_file_name=='change-password')
+    {
 	include_once 'controller/user-controller.php';
 	include_once 'controller/product-controller.php';
 	$user = new UserController();
@@ -914,7 +913,9 @@ else if($current_file_name=='change-password')
 	
 	if(isset($_POST) && !empty($_POST))
 	{
-		$userDetails = $user->getUserDetailsByemail(base64_decode($_POST['email-token']));
+            if(isset($_POST['email-token']) && $_POST['email-token']!='')
+            {
+            $userDetails = $user->getUserDetailsByemail(base64_decode($_POST['email-token']));
 		
 		$userDet = $userDetails[0];
 		$old_pwd = $userDet['password'];
@@ -944,15 +945,21 @@ else if($current_file_name=='change-password')
 			$user->redirect('index.php?page=change-password&msg=3');
 			exit;
 		}
+            }
+            else
+            {
+                $user->redirect('index.php?page=change-password&msg=4');
+                exit;
+            }
+            }
+           
 		
-	}
+	
 	
 	include('templates/change-password.php');
 			
-		
+	}
 
-}
-
-include_once 'layout/footer.php';
+       include_once 'layout/footer.php';
 
 ?>

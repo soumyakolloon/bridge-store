@@ -56,13 +56,13 @@
                                 <p>Description: <?php echo $row['description']; ?></p>
                                 <p>Price: <?php echo '$ '. $row['price']; ?></p>
                                 <?php if($row['payment_status']=='Completed') { ?>  
-                                <input type="button" name="download_prod" class="btn btn-primary" value="Download" onclick="javascript:window.location.href='<?php echo get_base_url(). 'index.php?page=downloader&token=' . $payment['token'] . '||' . $row['id'] ?>'">
+                                <input type="button" name="download_prod" class="btn btn-primary" value="Download" onclick="javascript:window.location.href='<?php echo get_base_url(). 'index.php?page=downloader&token=' . $payment['token'] . '||' . $row['product_id'] ?>'">
                                 <?php }
                                 else {
                                 ?>
 
-                                <a href="./index.php?page=buyitnow&product_id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-primary">Buy It Now</button></a>
-                                <!-- <a href="./index.php?page=addtocart&product_id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-primary">Add to cart</button></a> -->
+                                <a href="./index.php?page=buyitnow&product_id=<?php echo $row['product_id']; ?>"><button type="button" class="btn btn-primary">Buy It Now</button></a>
+                                <!-- <a href="./index.php?page=addtocart&product_id=<?php //echo $row['product_id']; ?>"><button type="button" class="btn btn-primary">Add to cart</button></a> -->
 
 
                                 <?php } ?>

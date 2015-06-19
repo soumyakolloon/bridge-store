@@ -161,7 +161,7 @@ class AppController
             $mail->Port = 465;
 
             //Set the encryption system to use - ssl (deprecated) or tls
-            $mail->SMTPSecure = 'tsl';
+            $mail->SMTPSecure = 'ssl';
 
             //Whether to use SMTP authentication
             $mail->SMTPAuth = true;
@@ -177,7 +177,7 @@ class AppController
             //Set who the message is to be sent to            
             foreach($to_emails as $to_email)
             {
-                $mail->addAnAddress('to', $to_email['email'], $to_email['name']);
+                $mail->addAddress($to_email['email'], $to_email['name']);
             }
             //Set the subject line
             $mail->Subject  = $subject;

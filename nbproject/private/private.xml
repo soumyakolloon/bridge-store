@@ -4,15 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/bridge-store/controller/user-controller.php</file>
-            <file>file:/C:/wamp/www/bridge-store/controller/product-controller.php</file>
-            <file>file:/C:/wamp/www/bridge-store/templates/addtocart.php</file>
-            <file>file:/C:/wamp/www/bridge-store/customers.php</file>
             <file>file:/C:/wamp/www/bridge-store/index.php</file>
-            <file>file:/C:/wamp/www/bridge-store/logout.php</file>
-            <file>file:/C:/wamp/www/bridge-store/purchases.php</file>
+            <file>file:/C:/wamp/www/bridge-store/customers.php</file>
+            <file>file:/C:/wamp/www/bridge-store/templates/registration.php</file>
             <file>file:/C:/wamp/www/bridge-store/controller/database-controller.php</file>
-            <file>file:/C:/wamp/www/bridge-store/post-handler.php</file>
-            <file>file:/C:/wamp/www/bridge-store/controller/paginate-controller.php</file>
+            <file>file:/C:/wamp/www/bridge-store/layout/header.php</file>
+            <file>file:/C:/wamp/www/bridge-store/js/jvaldidate.js</file>
         </group>
     </open-files>
 </project-private>

@@ -21,10 +21,14 @@
 			  
 			  echo 'Password changed successfully.';
 			}
-			else if(isset($_GET['msg']) && $_GET['msg']>1)
+			else if(isset($_GET['msg']) && ($_GET['msg']==3 || $_GET['msg']==2))
 			{
 				echo 'Old password that you entered is wrong.';
 			}  
+                        else if(isset($_GET['msg']) && $_GET['msg']==4)
+                        {
+                            echo "Invalid token. Please Reset the password again to get New password";
+                        }
 			?>
 		</div>
         
@@ -38,7 +42,7 @@
     <div class="col-lg-4">
         <form role="form" name="frmforgotpassword" id="frmforgotpassword" action="index.php?page=change-password&email-token=<?php $_GET['email-token']; ?>" onSubmit="return resetFormvalidate();" method="post" enctype="multipart/form-data">
 			<div class="panel panel-info">
-                <div class="panel-heading">
+                             <div class="panel-heading">
 					
 					
 					 <div class="row">
@@ -84,14 +88,16 @@
                         </div>
                         
                         <div class="panel-footer announcement-bottom">
-						<div class="row">
+	                <div class="row">
                   
                         <div class="col-xs-8 text-left">
-							<input type='hidden' id='email-token' name='email-token' value="<?php echo $_GET['email-token']; ?>">
-                            <input type="submit" class="btn btn-info" name="btnresetpawwsordSubmit" value="Change Passoword">
+                            <input type='hidden' id='email-token' name='email-token' value="<?php echo $_GET['email-token']; ?>">
+                            <input type="submit" class="btn btn-info" name="btnresetpawwsordSubmit" value="Change Password">
                                
                         </div>
-                    </div>
+                                                    
+                                                    
+                   </div>
                 </div>
 				</div>
                         

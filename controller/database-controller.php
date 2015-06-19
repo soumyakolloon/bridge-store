@@ -743,7 +743,9 @@ public function force_user_registration($first_name, $last_name, $email, $userna
         $query  = "SELECT *
         	       FROM " . $this->db_table_prefix . "users
         	       WHERE id = $id";
+        
         $result = $this->commonDatabaseAction($query);
+        
 //        if (mysql_num_rows($result) > 0)
         if ($this->rowCount > 0)
         {
@@ -763,7 +765,8 @@ public function force_user_registration($first_name, $last_name, $email, $userna
     public function user_get_all()
     {
         $query  = "SELECT *
-                   FROM " . $this->db_table_prefix . "users";
+                   FROM " . $this->db_table_prefix . "users order by id DESC";
+        //cho $query; exit;
         $result = $this->commonDatabaseAction($query);
 //        if (mysql_num_rows($result) > 0)
         if ($this->rowCount > 0)

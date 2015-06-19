@@ -5,13 +5,18 @@ include_once('controller/application-controller.php');
 $user = new UserController ();
 
 $app = new AppController();
+if(isset($_POST['username']))
+$_POST['firstname'] = $_POST['username'];
+else
+$_POST['firstname'] = "";
 
-$_POST['firstname']=$_POST['username'];
 $_POST['lastname']='';
 $user_details = $user->user_existence_check($_POST['email']);
 session_start(); 
 if(!empty($user_details))
 {
+      if($user_details[0]['status']==1)
+      {
             $_SESSION ['user_id']= $user_details[0]['id'];
             $_SESSION ['user_first_name'] = $user_details[0]['firstname'];
 
@@ -27,14 +32,19 @@ if(!empty($user_details))
             $_SESSION ['user_role'] = $user_details[0]['role_id'];
                 
                $respose_json = json_encode($_SESSION);    
-                echo $respose_json; exit;
-           // echo "1";
+               echo $respose_json; exit;
+                // echo "1";
+      }
+      else
+      {
+          echo "1";
+      }
       
-}
-else
-{
-echo "0";
-}
+    }
+    else
+    {
+    echo "0";
+    }
 
 
 

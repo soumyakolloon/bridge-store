@@ -112,7 +112,8 @@ if (isset($_REQUEST['action']))
     /* Category insert */
     if ($_REQUEST['action'] == 'CATEGORY')
     {
-        if ($_POST['category-name'])
+       
+        if (!empty($_POST['category-name']))
         {
             include_once 'controller/category-controller.php';
             $category     = new CategoryController();

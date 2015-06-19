@@ -35,12 +35,10 @@
     <div class="col-lg-4"></div>
     <div class="col-lg-4">
         <form role="form" name="frmforgotpassword" id="frmforgotpassword" action="index.php?page=forgot-password" onSubmit="return resetFormvalidate();" method="post" enctype="multipart/form-data">
-			<div class="panel panel-info">
-                <div class="panel-heading">
-					
-					
-                    <div class="row">
-							<!-- <div class="col-xs-4">
+	<div class="panel panel-info">
+         <div class="panel-heading">
+	          <div class="row">
+		<!-- <div class="col-xs-4">
                             <div class="form-group">
                                 <label>Username</label>
                             </div>
@@ -76,7 +74,7 @@
 						<div class="row">
                   
                         <div class="col-xs-8 text-left">
-                            <input type="submit" class="btn btn-info" name="btnresetpawwsordSubmit" value="Reset Passoword">
+                            <input type="submit" class="btn btn-info" name="btnresetpawwsordSubmit" value="Reset Password">
                                   
                         </div>
                     </div>
@@ -135,8 +133,7 @@ function validateEmail(email)
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
- 
- </script>
+</script>
  
  
  

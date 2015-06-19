@@ -24,7 +24,7 @@ if(isset($purchased_products) && count($purchased_products)){
     $purchase_prod = $purchased_products;
     
 }
- //print_r($products); exit;
+ //print_r($_GET); exit;
 ?>
 
 <div class="col-lg-12">
@@ -42,14 +42,20 @@ if(isset($purchased_products) && count($purchased_products)){
                             <ul class="list-group">  
                                 <li class="list-group-item">Categories</li>
                             <?php   foreach ($categories as $category)
-                                {
-                                    ?>
-                                    <li class="list-group-item">                                            
-                                        <span class="badge"><?php echo $category['no_of_products']; ?></span>
-                                        <a href="index.php?page=products-view&cat_id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a>                                            
+                                    {
+                                ?>
+                                    <li class="list-group-item"> 
+                                  <span class="badge"><?php echo $category['no_of_products']; ?></span>
+                                    <?php    if(isset($_GET[cat_id]) && ($_GET['cat_id'] == $category['id']))
+                                        {
+                                        ?>
+                                        <a style="color:rgb(138, 109, 59); pointer:null; " ><?php echo $category['name']; ?></a> 
+                                         <?php } else { ?>
+                                        <a href="index.php?page=products-view&cat_id=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a> 
+                                          <?php } ?>
                                     </li>
                                     <?php
-                                } ?>
+                                    } ?>
                                 </ul>
                             <?php }
                             else { ?>
@@ -57,6 +63,7 @@ if(isset($purchased_products) && count($purchased_products)){
                             <?php }
                             ?>                        
                     </div>
+                    
                 </div>
 
                 <div class="col-lg-8" style="display: inline">
@@ -95,11 +102,15 @@ if(isset($purchased_products) && count($purchased_products)){
                                                        ?>
                                                     </div>
                                                     <p><strong><?php echo '$ '. $product['price']; ?></strong></p>
+                                                    <?php if($_SESSION['user_role']!=1) { ?>
                                                     <div>
                                                         <a href="./index.php?page=buyitnow&product_id=<?php echo $product['id']; ?>"><button type="button" class="btn btn-primary">Buy It Now</button></a>
                                                         <a href="./index.php?page=addtocart&product_id=<?php echo $product['id']; ?>"><button type="button" class="btn btn-primary">Add to cart</button></a>
                                                     </div>
+                                                    <?php } ?>
+                                                    
                                                 </div>
+                                                
                                             </div>                    
                                         </div>
                                     </div>

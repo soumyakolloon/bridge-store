@@ -115,22 +115,21 @@ class UserController extends AppController
     }
 
 
-    /**Get user existence**/
+        /**Get user existence**/
 
-    public function user_existence_check($email)
-    {
-        $result = $this->database->user_get_by_email($email) ;
-        return $result;
-    }
+        public function user_existence_check($email)
+        {
+            $result = $this->database->user_get_by_email($email) ;
+            return $result;
+        }
 
 	/**Generate a random string*/
 
-function rand_string( $length ) {
-
-$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-return substr(str_shuffle($chars),0,$length);
-
-}
+        function rand_string( $length ) 
+        {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return substr(str_shuffle($chars),0,$length);
+        }
 
 
 /**
